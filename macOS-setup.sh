@@ -13,7 +13,3 @@ brew install python
 # Install Ansible
 echo -e "\033[1;34mInstalling Ansible\033[0m"
 brew install ansible
-
-# Install watchdog
-echo -e "\033[1;34mInstalling watchdog\033[0m"
-pip3 install watchdog --break-system-packages
