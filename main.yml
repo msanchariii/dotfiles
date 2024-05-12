@@ -365,14 +365,14 @@
         name: kitty
         state: present
         update_cache: yes
-      tags:
-        - macOS
+#      tags:
+#        - macOS
 
     - name: Set Kitty as default terminal emulator
       ansible.builtin.shell: |
         update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 50
-      tags:
-        - macOS
+#      tags:
+#        - macOS
 
     - name: Ensure Kitty configuration directory exists
       ansible.builtin.file:
@@ -381,8 +381,8 @@
         mode: '0755'
         # owner: "{{ ansible_user }}"
         # group: "{{ ansible_user }}"
-      tags:
-        - macOS
+#      tags:
+#        - macOS
 
     - name: Copy Kitty configuration file
       ansible.builtin.copy:
@@ -392,8 +392,8 @@
         # group: "{{ ansible_user }}"
         mode: '0644'
       notify: Reload Kitty
-      tags:
-        - macOS
+#      tags:
+#        - macOS
 
   # handlers:
   #   - name: Reload Kitty
