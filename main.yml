@@ -11,6 +11,7 @@
       become: true
       tags:
         - linux
+        - full
 
     - name: "1Password | Add APT Repo"
       ansible.builtin.apt_repository:
@@ -20,11 +21,13 @@
       become: true
       tags:
         - linux
+        - full
 
     - name: "1Password | Add debsig-verify policy"
       become: true
       tags:
         - linux
+        - full
       block:
         - name: "1Password | Ensure policy directory exists"
           ansible.builtin.file:
@@ -61,6 +64,7 @@
         - 1password
       tags:
         - linux
+        - full
 
     - name: Install 1Password and 1Password CLI
       homebrew:
@@ -70,7 +74,8 @@
         - 1password
         - 1password-cli
       tags: 
-        - macOS
+        - mac
+        - full
       
 #python
     - name: "Python | Install"
@@ -83,6 +88,7 @@
       become: true
       tags:
         - linux
+        - full
 
     # - name: "Python | Install pip packages"
     #   ansible.builtin.pip:
@@ -103,6 +109,7 @@
       become: no  # No need for privilege escalation
       tags:
         - linux
+        - full
 
     - name: "Python | Install pip packages in virtual environment"
       ansible.builtin.command:
@@ -115,6 +122,7 @@
       become: no  # No need for privilege escalation
       tags:
         - linux
+        - full
 
 
     - name: "Python | Ensure bpytop directory structure exists"
@@ -164,7 +172,8 @@
       become: true
       tags:
         - linux
-        - minimal-dev
+        - minimal
+        - full
 
     - name: Install Neovim on Debian
       ansible.builtin.apt:
@@ -173,7 +182,8 @@
       become: true
       tags:
        - linux
-       - minimal-dev
+       - minimal
+       - full
 
 
 
@@ -184,7 +194,8 @@
         state: directory
       tags:
         - linux
-        - minimal-dev
+        - minimal
+        - full
 
     # - name: "Neovim | Create symlink to role files directory"
     #   ansible.builtin.file:
@@ -201,16 +212,18 @@
         name: lua
         state: present
       tags:
-        - macOS
-        - minimal-dev-mac
+        - mac
+        - minimal
+        - full
 
     - name: Install Neovim
       homebrew:
         name: neovim
         state: present
       tags:
-        - macOS
-        - minimal-dev-mac
+        - mac
+        - minimal
+        - full
 
       
 #tmux
@@ -221,7 +234,8 @@
       become: true
       tags:
         - linux
-        - minimal-dev
+        - minimal
+        - full
 
     - name: "Tmux | Install TPM"
       ansible.builtin.git:
@@ -229,7 +243,8 @@
         dest: ~/.tmux/plugins/tpm
       tags:
         - linux
-        - minimal-dev
+        - minimal
+        - full
 
     - name: "Tmux | Configure tmux"
       ansible.builtin.copy:
@@ -240,15 +255,17 @@
         force: true
       tags:
         - linux
-        - minimal-dev
+        - minimal
+        - full
       
     - name: Install tmux
       homebrew:
         name: tmux
         state: present
       tags:
-        - macOS
-        - minimal-dev-mac
+        - mac
+        - minimal
+        - full
 
 #zsh
     - name: Install Zsh
@@ -258,21 +275,37 @@
       become: true
       tags:
         - linux
-        - minimal-dev
+        - minimal
+        - full
+
+    - name: Install ZSH and plugins
+      homebrew:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - zsh
+      tags:
+        - mac
+        - minimal
+        - full
 
     - name: "Zsh | Detect oh-my-zsh"
       ansible.builtin.stat:
         path: "{{ ansible_user_dir }}/.oh-my-zsh"
       register: ohmyzsh
       tags:
+        - mac
         - linux
-        - minimal-dev
+        - minimal
+        - full
 
     - name: "Zsh | Install oh-my-zsh if not installed"
       when: not ohmyzsh.stat.exists
       tags:
+        - mac
         - linux
-        - minimal-dev
+        - minimal
+        - full
       block:
         - name: "Zsh | Download oh-my-zsh Install Script"
           ansible.builtin.get_url:
@@ -290,16 +323,20 @@
         dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
         depth: 1
       tags:
+        - mac
         - linux
-        - minimal-dev
+        - minimal
+        - full
 
     - name: Add zsh-syntax-highlighting to .zshrc
       ansible.builtin.lineinfile:
         dest: "{{ ansible_user_dir }}/.zshrc"
         line: "source {{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
       tags:
+        - mac
         - linux
-        - minimal-dev
+        - minimal
+        - full
 
     - name: Clone zsh-autosuggestions repository
       ansible.builtin.git:
@@ -307,16 +344,20 @@
         dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
         depth: 1
       tags:
+        - mac
         - linux
-        - minimal-dev
+        - minimal
+        - full
 
     - name: Add zsh-autosuggestions to .zshrc
       ansible.builtin.lineinfile:
         dest: "{{ ansible_user_dir }}/.zshrc"
         line: "source {{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
       tags:
+        - mac
         - linux
-        - minimal-dev
+        - minimal
+        - full
 
     - name: "Zsh | Update .zshrc for all users"
       ansible.builtin.copy:
@@ -324,18 +365,10 @@
         dest: "~/.zshrc"
         mode: "0644"
       tags:
+        - mac
         - linux
-        - minimal-dev
-
-    - name: Install ZSH and plugins
-      homebrew:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - zsh
-      tags:
-        - macOS
-        - minimal-dev-mac
+        - minimal
+        - full
 
 #Remove oh-my-zsh
     - name: Remove Oh My Zsh Install Script
@@ -359,13 +392,13 @@
         state: present
         update_cache: yes
 #      tags:
-#        - macOS
+#        - mac
 
     - name: Set Kitty as default terminal emulator
       ansible.builtin.shell: |
         update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 50
 #      tags:
-#        - macOS
+#        - mac
 
     - name: Ensure Kitty configuration directory exists
       ansible.builtin.file:
@@ -375,7 +408,7 @@
         # owner: "{{ ansible_user }}"
         # group: "{{ ansible_user }}"
 #      tags:
-#        - macOS
+#        - mac
 
     - name: Copy Kitty configuration file
       ansible.builtin.copy:
@@ -386,10 +419,10 @@
         mode: '0644'
       notify: Reload Kitty
 #      tags:
-#        - macOS
+#        - mac
 
   # handlers:
   #   - name: Reload Kitty
   #     ansible.builtin.shell: "kitty @ --to=unix:/tmp/mykitty new-window"
   #     tags:
-  #       - macOS
+  #       - mac
