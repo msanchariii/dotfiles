@@ -145,13 +145,6 @@
     #   tags:
     #     - linux
 
-    - name: Install Python
-      homebrew:
-        name: python
-        state: present
-      tags: 
-        - macOS
-
 #neovim
     - name: "Neovim | {{ ansible_distribution }} | Dependencies"
       ansible.builtin.apt:
