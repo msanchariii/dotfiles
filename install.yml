@@ -38,7 +38,7 @@
         - mac-full
 
 
-#python
+# python
     - name: "Python | Install"
       ansible.builtin.apt:
         name:
@@ -111,7 +111,7 @@
     #   tags:
     #     - linux
 
-#neovim
+# neovim
     - name: "Debian | Install Neovim & its Dependencies"
       ansible.builtin.apt:
         name:
@@ -160,7 +160,7 @@
         - linux-full
 
 
-#tmux
+# tmux
     - name: "Tmux | {{ ansible_distribution }} | Install tmux"
       ansible.builtin.apt:
         name: tmux
@@ -197,7 +197,7 @@
         - mac-minimal
         - mac-full
 
-#zsh
+# zsh
     - name: Install Zsh
       apt:
         name: zsh
@@ -303,7 +303,7 @@
         - linux-minimal
         - linux-full
 
-#kitty
+# kitty
     - name: Install Kitty emulator
       homebrew:
         name: kitty
