@@ -4,14 +4,14 @@
   tasks:
 
 # 1Password
-    - name: Download 1Password CLI .deb file
+    - name: "Debian | Download 1Password CLI .deb file"
       ansible.builtin.get_url:
         url: "https://downloads.1password.com/linux/debian/arm64/stable/1password-cli-arm64-latest.deb"
         dest: "/tmp/1password-cli-arm64-latest.deb"
       tags:
         - linux-full
 
-    - name: Install 1Password CLI
+    - name: "Debian | Install 1Password CLI"
       ansible.builtin.apt:
         deb: "/tmp/1password-cli-arm64-latest.deb"
         state: present
@@ -19,7 +19,7 @@
       tags:
         - linux-full
 
-    - name: Clean up downloaded .deb file
+    - name: "Debian | Clean up downloaded .deb file"
       ansible.builtin.file:
         path: "/tmp/1password-cli-arm64-latest.deb"
         state: absent
@@ -27,7 +27,7 @@
         - linux-full
 
 
-    - name: Install 1Password and 1Password CLI
+    - name: "MacOS | Install 1Password and 1Password CLI"
       homebrew:
         name: "{{ item }}"
         state: present
@@ -39,7 +39,7 @@
 
 
 # python
-    - name: "Python | Install"
+    - name: "Debian | Install pip & python-venv"
       ansible.builtin.apt:
         name:
           - python3-pip
@@ -98,7 +98,7 @@
         - linux-full
 
 # tmux
-    - name: "Tmux | {{ ansible_distribution }} | Install tmux"
+    - name: "Debian | Install tmux"
       ansible.builtin.apt:
         name: tmux
         state: present
@@ -126,7 +126,7 @@
         - linux-minimal
         - linux-full
 
-    - name: Install tmux
+    - name: "MacOS | Install tmux"
       homebrew:
         name: tmux
         state: present
@@ -135,7 +135,7 @@
         - mac-full
 
 # zsh
-    - name: Install Zsh
+    - name: "Debian | Install Zsh"
       apt:
         name: zsh
         state: present
@@ -144,7 +144,7 @@
         - linux-minimal
         - linux-full
 
-    - name: Install ZSH and plugins
+    - name: "MacOS | Install ZSH and plugins"
       homebrew:
         name: "{{ item }}"
         state: present
@@ -241,7 +241,7 @@
         - linux-full
 
 # kitty
-    - name: Install Kitty emulator
+    - name: "MacOS | Install Kitty emulator"
       homebrew:
         name: kitty
         state: present
