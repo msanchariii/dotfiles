@@ -50,67 +50,6 @@
       tags:
         - linux-full
 
-    # - name: "Python | Install pip packages"
-    #   ansible.builtin.pip:
-    #     name: "{{ item }}"
-    #     state: present
-    #   loop:
-    #     - bpytop
-    #     - shell-gpt==0.9.0
-    #   tags:
-    #     - linux
-    - name: "Python | Create and activate virtual environment"
-      ansible.builtin.command:
-        cmd: python3 -m venv /ansible/venv
-      args:
-        creates: /ansible/venv/bin/python
-      environment:
-        PATH: "{{ ansible_env.PATH }}:/ansible/venv/bin"  # Ensure the correct Python interpreter is used
-      become: no  # No need for privilege escalation
-      tags:
-        - linux-full
-
-    - name: "Python | Install pip packages in virtual environment"
-      ansible.builtin.command:
-        cmd: "/ansible/venv/bin/python -m pip install {{ item }}"
-      loop:
-        - shell-gpt==0.9.0  # Install shell-gpt in the virtual environment
-        - bpytop
-      environment:
-        PATH: "{{ ansible_env.PATH }}:/ansible/venv/bin"  # Ensure the correct Python interpreter is used
-      become: no  # No need for privilege escalation
-      tags:
-        - linux-full
-
-
-    - name: "Python | Ensure bpytop directory structure exists"
-      ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config"
-        mode: "0755"
-        state: directory
-
-    - name: "Python | Ensure bpytop directory exists inside .config"
-      ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config/bpytop"
-        mode: "0755"
-        state: directory
-
-    - name: "Python | Copy bpytop config"
-      ansible.builtin.copy:
-        src: bpytop.conf
-        dest: "{{ ansible_env.HOME }}/.config/bpytop/bpytop.conf"
-        mode: "0644"
-
-    # - name: "Deactivate Python virtual environment"
-    #   ansible.builtin.command:
-    #     cmd: "deactivate"
-    #   environment:
-    #     PATH: "{{ ansible_env.PATH }}"
-    #   become: no  # No need for privilege escalation
-    #   when: ansible_python.version.major == 3  # Ensure Python 3 is being used
-    #   tags:
-    #     - linux
-
 # neovim
     - name: "Debian | Install Neovim & its Dependencies"
       ansible.builtin.apt:
@@ -158,7 +97,6 @@
         - mac-full
         - linux-minimal
         - linux-full
-
 
 # tmux
     - name: "Tmux | {{ ansible_distribution }} | Install tmux"
