@@ -2,7 +2,10 @@
 - name: play
   hosts: localhost
   tasks:
-  #1password
+- name: play
+  hosts: localhost
+  tasks:
+    # 1Password
     - name: "1Password | Add APT Key"
       ansible.builtin.apt_key:
         url: https://downloads.1password.com/linux/keys/1password.asc
@@ -14,7 +17,7 @@
 
     - name: "1Password | Add APT Repo"
       ansible.builtin.apt_repository:
-        repo: "deb [arch={{ ansible_machine | replace('x86_64', 'amd64') }} signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/{{ ansible_machine | replace('x86_64', 'amd64') }} stable main"
+        repo: "deb [arch={{ ansible_architecture }} signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/{{ ansible_architecture }} stable main"
         state: present
         mode: "0644"
       become: true
@@ -28,23 +31,23 @@
       block:
         - name: "1Password | Ensure policy directory exists"
           ansible.builtin.file:
-            name: /etc/debsig/policies/AC2D62742012EA22
+            path: /etc/debsig/policies/AC2D62742012EA22
             state: directory
             mode: "0755"
-      
-    
+
+
         - name: "1Password | Copy debsig-verify policy"
           ansible.builtin.get_url:
             url: https://downloads.1password.com/linux/debian/debsig/1password.pol
             dest: /etc/debsig/policies/AC2D62742012EA22/1password.pol
             mode: "0644"
-    
+
         - name: "1Password | Ensure debsig keyring directory exists"
           ansible.builtin.file:
-            name: /usr/share/debsig/keyrings/AC2D62742012EA22
+            path: /usr/share/debsig/keyrings/AC2D62742012EA22
             state: directory
             mode: "0755"
-    
+
         - name: "1Password | Add debsig keyring"
           ansible.builtin.apt_key:
             url: https://downloads.1password.com/linux/keys/1password.asc
@@ -58,9 +61,49 @@
       become: true
       loop:
         - 1password-cli
-        - 1password
       tags:
         - linux-full
+
+    - name: "1Password | Remove APT Key"
+      ansible.builtin.apt_key:
+        id: 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
+        state: absent
+      become: true
+      tags:
+        - linux-remove
+
+    - name: "1Password | Remove APT Repo"
+      ansible.builtin.apt_repository:
+        repo: "deb [arch={{ ansible_machine | replace('x86_64', 'amd64') }} signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/{{ ansible_machine | replace('x86_64', 'amd64') }} stable main"
+        state: absent
+      become: true
+      tags:
+        - linux-remove
+
+    - name: "1Password | Remove debsig-verify policy"
+      become: true
+      tags:
+        - linux-remove
+      block:
+        - name: "1Password | Remove policy directory"
+          ansible.builtin.file:
+            path: /etc/debsig/policies/AC2D62742012EA22
+            state: absent
+
+        - name: "1Password | Remove debsig keyring directory"
+          ansible.builtin.file:
+            path: /usr/share/debsig/keyrings/AC2D62742012EA22
+            state: absent
+
+    - name: "1Password | Uninstall 1Password and 1Password CLI"
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: absent
+      become: true
+      loop:
+        - 1password-cli
+      tags:
+        - linux-remove
 
     - name: Install 1Password and 1Password CLI
       homebrew:
@@ -69,9 +112,70 @@
       with_items:
         - 1password
         - 1password-cli
-      tags: 
+      tags:
         - mac-full
-      
+
+
+  # #1password
+  #   - name: "1Password | Add APT Key"
+  #     ansible.builtin.apt_key:
+  #       url: https://downloads.1password.com/linux/keys/1password.asc
+  #       keyring: /usr/share/keyrings/1password-archive-keyring.gpg
+  #       state: present
+  #     become: true
+  #     tags:
+  #       - linux-full
+
+  #   - name: "1Password | Add APT Repo"
+  #     ansible.builtin.apt_repository:
+  #       repo: "deb [arch={{ ansible_machine | replace('x86_64', 'amd64') }} signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/{{ ansible_machine | replace('x86_64', 'amd64') }} stable main"
+  #       state: present
+  #       mode: "0644"
+  #     become: true
+  #     tags:
+  #       - linux-full
+
+  #   - name: "1Password | Add debsig-verify policy"
+  #     become: true
+  #     tags:
+  #       - linux-full
+  #     block:
+  #       - name: "1Password | Ensure policy directory exists"
+  #         ansible.builtin.file:
+  #           name: /etc/debsig/policies/AC2D62742012EA22
+  #           state: directory
+  #           mode: "0755"
+
+
+  #       - name: "1Password | Copy debsig-verify policy"
+  #         ansible.builtin.get_url:
+  #           url: https://downloads.1password.com/linux/debian/debsig/1password.pol
+  #           dest: /etc/debsig/policies/AC2D62742012EA22/1password.pol
+  #           mode: "0644"
+
+  #       - name: "1Password | Ensure debsig keyring directory exists"
+  #         ansible.builtin.file:
+  #           name: /usr/share/debsig/keyrings/AC2D62742012EA22
+  #           state: directory
+  #           mode: "0755"
+
+  #       - name: "1Password | Add debsig keyring"
+  #         ansible.builtin.apt_key:
+  #           url: https://downloads.1password.com/linux/keys/1password.asc
+  #           keyring: /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+
+  #   - name: "1Password | Install 1Password and 1Password CLI"
+  #     ansible.builtin.apt:
+  #       name: "{{ item }}"
+  #       state: present
+  #       update_cache: true
+  #     become: true
+  #     loop:
+  #       - 1password-cli
+  #       - 1password
+  #     tags:
+  #       - linux-full
+
 #python
     - name: "Python | Install"
       ansible.builtin.apt:
@@ -213,7 +317,7 @@
         - mac-minimal
         - mac-full
 
-      
+
 #tmux
     - name: "Tmux | {{ ansible_distribution }} | Install tmux"
       ansible.builtin.apt:
@@ -242,7 +346,7 @@
       tags:
         - linux-minimal
         - linux-full
-      
+
     - name: Install tmux
       homebrew:
         name: tmux
@@ -364,7 +468,7 @@
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/oh-my-zsh.install.sh"
         state: absent
-      tags: 
+      tags:
         - remove
 
 #kitty
