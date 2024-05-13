@@ -21,15 +21,35 @@
       tags:
         - mac
 
-    - name: Remove Neovim and Lua
+    - name: Uninstall Neovim and Lua
       homebrew:
         name: "{{ item }}"
         state: absent
       with_items:
-        - neovim
+        - libtool
+        - ansible-lint
+        - ripgrep
         - lua
+        - luarocks
+        - luajit
+        - neovim
       tags:
         - mac
+
+    - name: Uninstall neovim and its' dependencies
+      ansible.builtin.apt:
+        name:
+          - pkg-config
+          - libtool
+          - ansible-lint
+          - ripgrep
+          - lua5.1
+          - luarocks
+          - luajit
+          - neovim
+        state: absent
+      tags:
+        - linux
 
     - name: Remove Neovim config folder
       ansible.builtin.file:
@@ -39,13 +59,10 @@
         - linux
         - mac
 
-    - name: Remove tmux and TPM
+    - name: Uninstall tmux
       homebrew:
-        name: "{{ item }}"
+        name: tmux
         state: absent
-      with_items:
-        - tmux
-        - tmux-plugins/tpm
       tags:
         - mac
 
