@@ -37,9 +37,9 @@
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.config/bpytop"
         state: absent
-      tags:
-        - linux
-        - mac
+#      tags:
+#        - linux
+#        - mac
 
     - name: Remove Neovim and Lua
       homebrew:
