@@ -2,9 +2,6 @@
 - name: play
   hosts: localhost
   tasks:
-- name: play
-  hosts: localhost
-  tasks:
 
 # 1Password
     - name: Download 1Password CLI .deb file
