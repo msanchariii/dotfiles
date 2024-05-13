@@ -21,18 +21,6 @@
       tags:
         - mac
 
-    - name: Remove Python packages and virtual environment
-      ansible.builtin.apt:
-        name:
-          - python3
-          - python3-pip
-          - python3-venv
-        state: absent
-      become: true
-      tags:
-        - linux
-        - mac
-
     - name: Remove bpytop and its config
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.config/bpytop"
