@@ -6,4 +6,5 @@ RUN apt-get update && \
         ansible \
         git \
         gnupg \
+        python3 \
     && rm -rf /var/lib/apt/lists/*
