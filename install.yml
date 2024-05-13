@@ -70,7 +70,7 @@
         - linux-minimal
         - linux-full
 
-    - name: "MacOS | Install Lua & Neovim"
+    - name: "MacOS | Install Neovim & its Dependencies"
       homebrew:
         name: "{{ item }}"
         state: present
