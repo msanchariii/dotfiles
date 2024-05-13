@@ -1,0 +1,114 @@
+---
+- name: play
+  hosts: localhost
+  tasks:
+
+# 1Password
+    - name: Uninstall 1Password CLI
+      ansible.builtin.apt:
+        name: 1password-cli
+        state: absent
+      tags:
+        - linux
+
+    - name: Uninstall 1Password and 1Password CLI
+      homebrew:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - 1password
+        - 1password-cli
+      tags:
+        - mac
+
+    - name: Remove Python packages and virtual environment
+      ansible.builtin.apt:
+        name:
+          - python3
+          - python3-pip
+          - python3-venv
+        state: absent
+      become: true
+      tags:
+        - linux
+        - mac
+
+    - name: Remove bpytop and its config
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/bpytop"
+        state: absent
+      tags:
+        - linux
+        - mac
+
+    - name: Remove Neovim and Lua
+      homebrew:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - neovim
+        - lua
+      tags:
+        - mac
+
+    - name: Remove Neovim config folder
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.config/nvim"
+        state: absent
+      tags:
+        - linux
+        - mac
+
+    - name: Remove tmux and TPM
+      homebrew:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - tmux
+        - tmux-plugins/tpm
+      tags:
+        - mac
+
+    - name: Remove tmux config
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.config/tmux.conf"
+        state: absent
+      tags:
+        - linux
+        - mac
+
+    - name: Remove Zsh and oh-my-zsh
+      homebrew:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - zsh
+        - oh-my-zsh
+      tags:
+        - mac
+
+    - name: Remove Zsh config
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.zshrc"
+        state: absent
+      tags:
+        - mac
+        - linux
+
+
+# Remove zsh & oh-my-zsh
+    - name: Remove Oh My Zsh Install Script
+      ansible.builtin.file:
+        path: /tmp/oh-my-zsh.install.sh
+        state: absent
+      tags:
+        - mac
+        - linux
+
+    - name: Cleanup Oh My Zsh Install Script
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/oh-my-zsh.install.sh"
+        state: absent
+      tags:
+        - mac
+        - linux
