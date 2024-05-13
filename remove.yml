@@ -82,15 +82,6 @@
         - mac
 
     - name: Uninstall Zsh
-      homebrew:
-        name: "{{ item }}"
-        state: absent
-      with_items:
-        - zsh
-      tags:
-        - mac
-
-    - name: Uninstall Zsh
       ansible.builtin.apt:
         name: zsh
         state: absent
