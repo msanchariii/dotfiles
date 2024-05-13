@@ -21,14 +21,6 @@
       tags:
         - mac
 
-    - name: Remove bpytop and its config
-      ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config/bpytop"
-        state: absent
-#      tags:
-#        - linux
-#        - mac
-
     - name: Remove Neovim and Lua
       homebrew:
         name: "{{ item }}"
@@ -71,7 +63,6 @@
         state: absent
       with_items:
         - zsh
-        - oh-my-zsh
       tags:
         - mac
 
