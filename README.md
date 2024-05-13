@@ -27,5 +27,5 @@ ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook main.yml --tag
 #### Install Full packages in Linux:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook main.yml --tags linux-minimal
+ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook main.yml --tags linux-full
 ```
