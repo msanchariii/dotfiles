@@ -21,7 +21,7 @@
       tags:
         - mac
 
-    - name: Uninstall Neovim and its dependencies
+    - name: Uninstall Neovim and its Dependencies
       homebrew:
         name: "{{ item }}"
         state: absent
@@ -36,7 +36,7 @@
       tags:
         - mac
 
-    - name: Uninstall Neovim and its dependencies
+    - name: Uninstall Neovim and its Dependencies
       ansible.builtin.apt:
         name:
           - neovim
@@ -51,7 +51,7 @@
       tags:
         - linux
 
-    - name: Remove Neovim config folder
+    - name: Remove Neovim config directory
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.config/nvim"
         state: absent
@@ -66,6 +66,13 @@
       tags:
         - mac
 
+    - name: Uninstall tmux
+      ansible.builtin.apt:
+        name: tmux
+        state: absent
+      tags:
+        - linux
+
     - name: Remove tmux config
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.config/tmux.conf"
@@ -74,7 +81,7 @@
         - linux
         - mac
 
-    - name: Remove Zsh and oh-my-zsh
+    - name: Uninstall Zsh
       homebrew:
         name: "{{ item }}"
         state: absent
@@ -82,6 +89,13 @@
         - zsh
       tags:
         - mac
+
+    - name: Uninstall Zsh
+      ansible.builtin.apt:
+        name: zsh
+        state: absent
+      tags:
+        - linux
 
     - name: Remove Zsh config
       ansible.builtin.file:
@@ -91,19 +105,9 @@
         - mac
         - linux
 
-
-# Remove zsh & oh-my-zsh
-    - name: Remove Oh My Zsh Install Script
+    - name: Remove .oh-my-zsh directory
       ansible.builtin.file:
-        path: /tmp/oh-my-zsh.install.sh
-        state: absent
-      tags:
-        - mac
-        - linux
-
-    - name: Cleanup Oh My Zsh Install Script
-      ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/oh-my-zsh.install.sh"
+        path: "{{ ansible_env.HOME }}/.oh-my-zsh"
         state: absent
       tags:
         - mac
