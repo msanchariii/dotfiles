@@ -6,104 +6,22 @@
   hosts: localhost
   tasks:
     # 1Password
-    - name: "1Password | Add APT Key"
-      ansible.builtin.apt_key:
-        url: https://downloads.1password.com/linux/keys/1password.asc
-        keyring: /usr/share/keyrings/1password-archive-keyring.gpg
-        state: present
-      become: true
-      tags:
-        - linux-full
+    - name: Download 1Password CLI .deb file
+      ansible.builtin.get_url:
+        url: "https://downloads.1password.com/linux/debian/arm64/stable/1password-cli-arm64-latest.deb"
+        dest: "/tmp/1password-cli-arm64-latest.deb"
 
-    - name: "1Password | Add APT Repo"
-      ansible.builtin.apt_repository:
-        repo: "deb [arch={{ ansible_architecture }} signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/{{ ansible_architecture }} stable main"
-        state: present
-        mode: "0644"
-      become: true
-      tags:
-        - linux-full
-
-    - name: "1Password | Add debsig-verify policy"
-      become: true
-      tags:
-        - linux-full
-      block:
-        - name: "1Password | Ensure policy directory exists"
-          ansible.builtin.file:
-            path: /etc/debsig/policies/AC2D62742012EA22
-            state: directory
-            mode: "0755"
-
-
-        - name: "1Password | Copy debsig-verify policy"
-          ansible.builtin.get_url:
-            url: https://downloads.1password.com/linux/debian/debsig/1password.pol
-            dest: /etc/debsig/policies/AC2D62742012EA22/1password.pol
-            mode: "0644"
-
-        - name: "1Password | Ensure debsig keyring directory exists"
-          ansible.builtin.file:
-            path: /usr/share/debsig/keyrings/AC2D62742012EA22
-            state: directory
-            mode: "0755"
-
-        - name: "1Password | Add debsig keyring"
-          ansible.builtin.apt_key:
-            url: https://downloads.1password.com/linux/keys/1password.asc
-            keyring: /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
-
-    - name: "1Password | Install 1Password and 1Password CLI"
+    - name: Install 1Password CLI
       ansible.builtin.apt:
-        name: "{{ item }}"
+        deb: "/tmp/1password-cli-arm64-latest.deb"
         state: present
-        update_cache: true
       become: true
-      loop:
-        - 1password-cli
-      tags:
-        - linux-full
 
-    - name: "1Password | Remove APT Key"
-      ansible.builtin.apt_key:
-        id: 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
+    - name: Clean up downloaded .deb file
+      ansible.builtin.file:
+        path: "/tmp/1password-cli-arm64-latest.deb"
         state: absent
-      become: true
-      tags:
-        - linux-remove
 
-    - name: "1Password | Remove APT Repo"
-      ansible.builtin.apt_repository:
-        repo: "deb [arch={{ ansible_machine | replace('x86_64', 'amd64') }} signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/{{ ansible_machine | replace('x86_64', 'amd64') }} stable main"
-        state: absent
-      become: true
-      tags:
-        - linux-remove
-
-    - name: "1Password | Remove debsig-verify policy"
-      become: true
-      tags:
-        - linux-remove
-      block:
-        - name: "1Password | Remove policy directory"
-          ansible.builtin.file:
-            path: /etc/debsig/policies/AC2D62742012EA22
-            state: absent
-
-        - name: "1Password | Remove debsig keyring directory"
-          ansible.builtin.file:
-            path: /usr/share/debsig/keyrings/AC2D62742012EA22
-            state: absent
-
-    - name: "1Password | Uninstall 1Password and 1Password CLI"
-      ansible.builtin.apt:
-        name: "{{ item }}"
-        state: absent
-      become: true
-      loop:
-        - 1password-cli
-      tags:
-        - linux-remove
 
     - name: Install 1Password and 1Password CLI
       homebrew:
