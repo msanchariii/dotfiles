@@ -249,12 +249,6 @@
       tags:
         - mac-full
 
-    - name: Set Kitty as default terminal emulator
-      ansible.builtin.shell: |
-        update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 50
-#      tags:
-#        - mac-full
-
     - name: Ensure Kitty configuration directory exists
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.config/kitty"
