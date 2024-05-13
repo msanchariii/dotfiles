@@ -30,9 +30,9 @@
         - libtool
         - ansible-lint
         - ripgrep
-        - lua
         - luarocks
         - luajit
+        - lua
       tags:
         - mac
 
@@ -44,9 +44,9 @@
           - libtool
           - ansible-lint
           - ripgrep
-          - lua5.1
           - luarocks
           - luajit
+          - lua5.1
         state: absent
       tags:
         - linux
