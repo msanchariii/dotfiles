@@ -21,24 +21,25 @@
       tags:
         - mac
 
-    - name: Uninstall Neovim and Lua
+    - name: Uninstall Neovim and its dependencies
       homebrew:
         name: "{{ item }}"
         state: absent
       with_items:
+        - neovim
         - libtool
         - ansible-lint
         - ripgrep
         - lua
         - luarocks
         - luajit
-        - neovim
       tags:
         - mac
 
-    - name: Uninstall neovim and its' dependencies
+    - name: Uninstall Neovim and its dependencies
       ansible.builtin.apt:
         name:
+          - neovim
           - pkg-config
           - libtool
           - ansible-lint
@@ -46,7 +47,6 @@
           - lua5.1
           - luarocks
           - luajit
-          - neovim
         state: absent
       tags:
         - linux
