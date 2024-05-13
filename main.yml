@@ -10,17 +10,23 @@
       ansible.builtin.get_url:
         url: "https://downloads.1password.com/linux/debian/arm64/stable/1password-cli-arm64-latest.deb"
         dest: "/tmp/1password-cli-arm64-latest.deb"
+      tags:
+        - linux-full
 
     - name: Install 1Password CLI
       ansible.builtin.apt:
         deb: "/tmp/1password-cli-arm64-latest.deb"
         state: present
       become: true
+      tags:
+        - linux-full
 
     - name: Clean up downloaded .deb file
       ansible.builtin.file:
         path: "/tmp/1password-cli-arm64-latest.deb"
         state: absent
+      tags:
+        - linux-full
 
 
     - name: Install 1Password and 1Password CLI
