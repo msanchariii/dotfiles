@@ -135,6 +135,16 @@
         - mac-full
 
 # zsh
+    - name: "MacOS | Install ZSH"
+      homebrew:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - zsh
+      tags:
+        - mac-minimal
+        - mac-full
+
     - name: "Debian | Install Zsh"
       apt:
         name: zsh
@@ -150,18 +160,10 @@
         dest: "{{ ansible_user_dir }}/"
         force: true
       tags:
-        - linux-minimal
-        - linux-full
-
-    - name: "MacOS | Install ZSH"
-      homebrew:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - zsh
-      tags:
         - mac-minimal
         - mac-full
+        - linux-minimal
+        - linux-full
 
     - name: "Zsh | Detect oh-my-zsh"
       ansible.builtin.stat:
