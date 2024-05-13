@@ -144,7 +144,16 @@
         - linux-minimal
         - linux-full
 
-    - name: "MacOS | Install ZSH and plugins"
+    - name: "Zsh | Configure .zshrc"
+      ansible.builtin.copy:
+        src: .zshrc
+        dest: "{{ ansible_user_dir }}/"
+        force: true
+      tags:
+        - linux-minimal
+        - linux-full
+
+    - name: "MacOS | Install ZSH"
       homebrew:
         name: "{{ item }}"
         state: present
