@@ -72,11 +72,29 @@
 
 
 ## node.js
+    - name: Uninstall TypeScript
+      npm:
+        name: typescript
+        state: absent
+        global: yes
+      tags:
+        - mac
+        - linux
+
+    - name: Uninstall React
+      npm:
+        name: react
+        state: absent
+        global: yes
+      tags:
+        - mac
+        - linux
+
     - name: "MacOS | Uninstall Node.js & npm"
       homebrew:
         name:
-          - node
           - npm
+          - node
         state: absent
       tags:
         - mac
@@ -84,8 +102,8 @@
     - name: "Debian | Uninstall Node.js & npm"
       ansible.builtin.apt:
         name:
-          - nodejs
           - npm
+          - nodejs
         state: absent
       tags:
         - linux
