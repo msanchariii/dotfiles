@@ -100,7 +100,7 @@
     - name: "MacOS | Install Node.js & npm"
       homebrew:
         name:
-          - nodejs
+          - node
           - npm
         state: present
       tags:
