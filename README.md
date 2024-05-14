@@ -25,7 +25,7 @@ ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook install.yml --
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook remove.yml --tags mac
 ```
-
+___
 #### Install Minimal packages & configs in Linux:
 
 ```bash
