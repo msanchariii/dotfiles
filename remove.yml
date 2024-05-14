@@ -4,14 +4,7 @@
   tasks:
 
 # 1Password
-    - name: Uninstall 1Password CLI
-      ansible.builtin.apt:
-        name: 1password-cli
-        state: absent
-      tags:
-        - linux
-
-    - name: Uninstall 1Password and 1Password CLI
+    - name: "MacOS | Uninstall 1Password and 1Password CLI"
       homebrew:
         name: "{{ item }}"
         state: absent
@@ -21,7 +14,16 @@
       tags:
         - mac
 
-    - name: Uninstall Neovim and its Dependencies
+    - name: "Debian | Uninstall 1Password CLI"
+      ansible.builtin.apt:
+        name: 1password-cli
+        state: absent
+      tags:
+        - linux
+
+
+# neovim
+    - name: "MacOS | Uninstall Neovim and its Dependencies"
       homebrew:
         name: "{{ item }}"
         state: absent
@@ -36,7 +38,7 @@
       tags:
         - mac
 
-    - name: Uninstall Neovim and its Dependencies
+    - name: "Debian | Uninstall Neovim and its Dependencies"
       ansible.builtin.apt:
         name:
           - neovim
@@ -59,6 +61,7 @@
         - linux
         - mac
 
+# tmux
     - name: Uninstall tmux
       homebrew:
         name: tmux
@@ -73,6 +76,14 @@
       tags:
         - linux
 
+    - name: Remove TPM directory
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
+        state: absent
+      tags:
+        - linux
+        - mac
+
     - name: Remove tmux config
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.config/tmux.conf"
@@ -81,6 +92,7 @@
         - linux
         - mac
 
+# zsh
     - name: Uninstall Zsh
       ansible.builtin.apt:
         name: zsh

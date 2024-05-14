@@ -50,6 +50,22 @@
         - linux-full
 
 # neovim
+    - name: "MacOS | Install Neovim & its Dependencies"
+      homebrew:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - libtool
+        - ansible-lint
+        - ripgrep
+        - lua
+        - luarocks
+        - luajit
+        - neovim
+      tags:
+        - mac-minimal
+        - mac-full
+
     - name: "Debian | Install Neovim & its Dependencies"
       ansible.builtin.apt:
         name:
@@ -70,22 +86,6 @@
         - linux-minimal
         - linux-full
 
-    - name: "MacOS | Install Neovim & its Dependencies"
-      homebrew:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - libtool
-        - ansible-lint
-        - ripgrep
-        - lua
-        - luarocks
-        - luajit
-        - neovim
-      tags:
-        - mac-minimal
-        - mac-full
-
     - name: "Neovim | Config folder"
       ansible.builtin.file:
         mode: "0755"
@@ -98,6 +98,14 @@
         - linux-full
 
 # tmux
+    - name: "MacOS | Install tmux"
+      homebrew:
+        name: tmux
+        state: present
+      tags:
+        - mac-minimal
+        - mac-full
+
     - name: "Debian | Install tmux"
       ansible.builtin.apt:
         name: tmux
@@ -112,6 +120,8 @@
         repo: https://github.com/tmux-plugins/tpm
         dest: ~/.tmux/plugins/tpm
       tags:
+        - mac-minimal
+        - mac-full
         - linux-minimal
         - linux-full
 
@@ -125,14 +135,6 @@
       tags:
         - linux-minimal
         - linux-full
-
-    - name: "MacOS | Install tmux"
-      homebrew:
-        name: tmux
-        state: present
-      tags:
-        - mac-minimal
-        - mac-full
 
 # zsh
     - name: "MacOS | Install ZSH"
