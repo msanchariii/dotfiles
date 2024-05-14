@@ -6,6 +6,8 @@
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/suyashbhawsar/ansible_playbook/main/macOS-setup.sh)"
 ```
 
+##### Now, quit & re-open the Terminal
+
 #### Install Minimal packages & configs in MacOS:
 
 ```bash
