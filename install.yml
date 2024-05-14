@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
 
-# 1Password
+## 1Password
     - name: "Debian | Download 1Password CLI .deb file"
       ansible.builtin.get_url:
         url: "https://downloads.1password.com/linux/debian/arm64/stable/1password-cli-arm64-latest.deb"
@@ -38,18 +38,16 @@
         - mac-full
 
 
-# python
-    - name: "Debian | Install pip & python-venv"
-      ansible.builtin.apt:
-        name:
-          - python3-pip
-          - python3-venv
+## kitty
+    - name: "MacOS | Install Kitty emulator"
+      homebrew:
+        name: kitty
         state: present
-      become: true
       tags:
-        - linux-full
+        - mac-full
 
-# neovim
+
+## neovim
     - name: "MacOS | Install Neovim & its Dependencies"
       homebrew:
         name: "{{ item }}"
@@ -97,7 +95,63 @@
         - linux-minimal
         - linux-full
 
-# tmux
+
+## node.js
+    - name: "MacOS | Install Node.js & npm"
+      homebrew:
+        name:
+          - nodejs
+          - npm
+        state: present
+      tags:
+        - mac-minimal
+        - mac-full
+
+    - name: "Debian | Install Node.js & npm"
+      ansible.builtin.apt:
+        name:
+          - nodejs
+          - npm
+        state: present
+      become: true
+      tags:
+        - linux-minimal
+        - linux-full
+
+    - name: Install React
+      npm:
+        name: react
+        global: yes
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux-minimal
+        - linux-full
+
+    - name: Install TypeScript
+      npm:
+        name: typescript
+        global: yes
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux-minimal
+        - linux-full
+
+
+## python
+    - name: "Debian | Install pip & python-venv"
+      ansible.builtin.apt:
+        name:
+          - python3-pip
+          - python3-venv
+        state: present
+      become: true
+      tags:
+        - linux-full
+
+
+## tmux
     - name: "MacOS | Install tmux"
       homebrew:
         name: tmux
@@ -136,7 +190,7 @@
         - linux-minimal
         - linux-full
 
-# zsh
+## zsh
     - name: "MacOS | Install ZSH"
       homebrew:
         name: "{{ item }}"
@@ -252,11 +306,3 @@
         - mac-full
         - linux-minimal
         - linux-full
-
-# kitty
-    - name: "MacOS | Install Kitty emulator"
-      homebrew:
-        name: kitty
-        state: present
-      tags:
-        - mac-full
