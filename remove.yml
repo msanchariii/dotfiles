@@ -28,7 +28,7 @@
         name: kitty
         state: absent
       tags:
-        - linux
+        - mac
 
 
 ## neovim
