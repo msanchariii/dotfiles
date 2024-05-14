@@ -62,14 +62,14 @@
         - mac
 
 # tmux
-    - name: Uninstall tmux
+    - name: "MacOS | Uninstall tmux"
       homebrew:
         name: tmux
         state: absent
       tags:
         - mac
 
-    - name: Uninstall tmux
+    - name: "Debian | Uninstall tmux"
       ansible.builtin.apt:
         name: tmux
         state: absent
@@ -93,7 +93,7 @@
         - mac
 
 # zsh
-    - name: Uninstall Zsh
+    - name: "Debian | Uninstall Zsh"
       ansible.builtin.apt:
         name: zsh
         state: absent
@@ -114,4 +114,12 @@
         state: absent
       tags:
         - mac
+        - linux
+
+# kitty
+    - name: "MacOS | Uninstall Kitty terminal emulator"
+      homebrew:
+        name: kitty
+        state: absent
+      tags:
         - linux
