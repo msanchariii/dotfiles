@@ -110,6 +110,7 @@
     - name: "Debian | Install Node.js & npm"
       ansible.builtin.apt:
         name:
+          - build-essential
           - nodejs
           - npm
         state: present
