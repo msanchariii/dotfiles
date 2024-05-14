@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
 
-# 1Password
+## 1Password
     - name: "MacOS | Uninstall 1Password and 1Password CLI"
       homebrew:
         name: "{{ item }}"
@@ -22,7 +22,16 @@
         - linux
 
 
-# neovim
+# kitty
+    - name: "MacOS | Uninstall Kitty terminal emulator"
+      homebrew:
+        name: kitty
+        state: absent
+      tags:
+        - linux
+
+
+## neovim
     - name: "MacOS | Uninstall Neovim and its Dependencies"
       homebrew:
         name: "{{ item }}"
@@ -61,7 +70,28 @@
         - linux
         - mac
 
-# tmux
+
+## node.js
+    - name: "MacOS | Uninstall Node.js & npm"
+      homebrew:
+        name:
+          - node
+          - npm
+        state: absent
+      tags:
+        - mac
+
+    - name: "Debian | Uninstall Node.js & npm"
+      ansible.builtin.apt:
+        name:
+          - nodejs
+          - npm
+        state: absent
+      tags:
+        - linux
+
+
+## tmux
     - name: "MacOS | Uninstall tmux"
       homebrew:
         name: tmux
@@ -92,7 +122,8 @@
         - linux
         - mac
 
-# zsh
+
+## zsh
     - name: "Debian | Uninstall Zsh"
       ansible.builtin.apt:
         name: zsh
@@ -114,12 +145,4 @@
         state: absent
       tags:
         - mac
-        - linux
-
-# kitty
-    - name: "MacOS | Uninstall Kitty terminal emulator"
-      homebrew:
-        name: kitty
-        state: absent
-      tags:
         - linux
