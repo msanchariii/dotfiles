@@ -94,23 +94,17 @@
       become: true
       tags:
         - linux
-    - name: "Tmux | Install TPM"
-      ansible.builtin.git:
-        repo: https://github.com/tmux-plugins/tpm
-        dest: ~/.tmux/plugins/tpm
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
 
     - name: "Tmux | Configure tmux"
       ansible.builtin.copy:
-        src: tmux.conf
+        src: "{{ ansible_user_dir }}/.dotfiles/tmux/tmux.conf"
         dest: "{{ ansible_user_dir }}/.config/"
         mode: "0644"
         directory_mode: "0755"
         force: true
       tags:
+        - mac-minimal
+        - mac-full
         - linux
 
 ## zsh
@@ -134,7 +128,7 @@
 
     - name: "Zsh | Configure .zshrc"
       ansible.builtin.copy:
-        src: .zshrc
+        src: "{{ ansible_user_dir }}/.dotfiles/zsh/.zshrc"
         dest: "{{ ansible_user_dir }}/"
         force: true
       tags:
