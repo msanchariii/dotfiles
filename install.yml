@@ -3,6 +3,13 @@
   hosts: localhost
   tasks:
 
+# Clone the configs repo
+    - name: Clone the .dotfiles repository into a hidden directory
+      git:
+        repo: 'https://github.com/suyashbhawsar/.dotfiles.git'
+        dest: '~/.dotfiles'
+        update: yes
+
 ## 1Password
     - name: "MacOS | Install 1Password and 1Password CLI"
       homebrew:
