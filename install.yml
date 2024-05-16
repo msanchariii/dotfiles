@@ -118,7 +118,7 @@
 
     - name: "Tmux | Configure tmux using Stow"
       ansible.builtin.command:
-        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }}/.config tmux"
+        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
       tags:
         - mac-minimal
         - mac-full
