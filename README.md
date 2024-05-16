@@ -3,7 +3,7 @@
 #### Install Ansible & Homebrew in MacOS:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/suyashbhawsar/ansible_playbook/main/macOS-setup.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/suyashbhawsar/dotfiles/main/macOS-setup.sh)"
 ```
 
 ##### Now, quit & re-open the Terminal
@@ -11,35 +11,29 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/suyashbhawsar/ansible_pl
 #### Install Minimal packages & configs in MacOS:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook install.yml --tags mac-minimal
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags mac-minimal
 ```
 
 #### Install Full packages & configs in MacOS:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook install.yml --tags mac-full
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags mac-full
 ```
 
 #### Remove packages & configs in MacOS:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook remove.yml --tags mac
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles remove.yml --tags mac
 ```
 ___
-#### Install Minimal packages & configs in Linux:
+#### Install packages & configs in Linux:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook install.yml --tags linux-minimal
-```
-
-#### Install Full packages & configs in Linux:
-
-```bash
-ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook install.yml --tags linux-full
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags linux
 ```
 
 #### Remove packages & configs in Linux:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/ansible_playbook remove.yml --tags linux
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles remove.yml --tags linux
 ```
