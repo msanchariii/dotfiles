@@ -4,29 +4,6 @@
   tasks:
 
 ## 1Password
-    - name: "Debian | Download 1Password CLI .deb file"
-      ansible.builtin.get_url:
-        url: "https://downloads.1password.com/linux/debian/arm64/stable/1password-cli-arm64-latest.deb"
-        dest: "/tmp/1password-cli-arm64-latest.deb"
-      tags:
-        - linux-full
-
-    - name: "Debian | Install 1Password CLI"
-      ansible.builtin.apt:
-        deb: "/tmp/1password-cli-arm64-latest.deb"
-        state: present
-      become: true
-      tags:
-        - linux-full
-
-    - name: "Debian | Clean up downloaded .deb file"
-      ansible.builtin.file:
-        path: "/tmp/1password-cli-arm64-latest.deb"
-        state: absent
-      tags:
-        - linux-full
-
-
     - name: "MacOS | Install 1Password and 1Password CLI"
       homebrew:
         name: "{{ item }}"
@@ -81,8 +58,7 @@
         state: present
       become: true
       tags:
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: "Neovim | Config folder"
       ansible.builtin.file:
@@ -92,8 +68,7 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
 
 
 ## node.js
@@ -116,8 +91,7 @@
         state: present
       become: true
       tags:
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: Install React
       npm:
@@ -126,8 +100,7 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: Install TypeScript
       npm:
@@ -136,20 +109,7 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
-
-
-## python
-    - name: "Debian | Install pip & python-venv"
-      ansible.builtin.apt:
-        name:
-          - python3-pip
-          - python3-venv
-        state: present
-      become: true
-      tags:
-        - linux-full
+        - linux
 
 
 ## tmux
@@ -167,9 +127,7 @@
         state: present
       become: true
       tags:
-        - linux-minimal
-        - linux-full
-
+        - linux
     - name: "Tmux | Install TPM"
       ansible.builtin.git:
         repo: https://github.com/tmux-plugins/tpm
@@ -177,8 +135,7 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: "Tmux | Configure tmux"
       ansible.builtin.copy:
@@ -188,8 +145,7 @@
         directory_mode: "0755"
         force: true
       tags:
-        - linux-minimal
-        - linux-full
+        - linux
 
 ## zsh
     - name: "MacOS | Install ZSH"
@@ -208,8 +164,7 @@
         state: present
       become: true
       tags:
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: "Zsh | Configure .zshrc"
       ansible.builtin.copy:
@@ -219,8 +174,7 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: "Zsh | Detect oh-my-zsh"
       ansible.builtin.stat:
@@ -229,16 +183,14 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: "Zsh | Install oh-my-zsh if not installed"
       when: not ohmyzsh.stat.exists
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
       block:
         - name: "Zsh | Download oh-my-zsh Install Script"
           ansible.builtin.get_url:
@@ -263,8 +215,7 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: Add zsh-syntax-highlighting to .zshrc
       ansible.builtin.lineinfile:
@@ -273,8 +224,7 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: Clone zsh-autosuggestions repository
       ansible.builtin.git:
@@ -284,8 +234,7 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: Add zsh-autosuggestions to .zshrc
       ansible.builtin.lineinfile:
@@ -294,8 +243,7 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
 
     - name: "Zsh | Update .zshrc for all users"
       ansible.builtin.copy:
@@ -305,5 +253,4 @@
       tags:
         - mac-minimal
         - mac-full
-        - linux-minimal
-        - linux-full
+        - linux
