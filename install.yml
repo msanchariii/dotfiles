@@ -71,47 +71,6 @@
         - linux
 
 
-## node.js
-    - name: "MacOS | Install Node.js & npm"
-      homebrew:
-        name:
-          - node
-          - npm
-        state: present
-      tags:
-        - mac-minimal
-        - mac-full
-
-    - name: "Debian | Install Node.js & npm"
-      ansible.builtin.apt:
-        name:
-          - build-essential
-          - nodejs
-          - npm
-        state: present
-      become: true
-      tags:
-        - linux
-
-    - name: Install React
-      npm:
-        name: react
-        global: yes
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-
-    - name: Install TypeScript
-      npm:
-        name: typescript
-        global: yes
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-
-
 ## tmux
     - name: "MacOS | Install tmux"
       homebrew:
