@@ -9,6 +9,10 @@
         repo: 'https://github.com/suyashbhawsar/.dotfiles.git'
         dest: '~/.dotfiles'
         update: yes
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
 ## 1Password
     - name: "MacOS | Install 1Password and 1Password CLI"
