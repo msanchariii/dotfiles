@@ -14,6 +14,23 @@
         - mac-full
         - linux
 
+## GNU Stow
+    - name: "MacOS | Install GNU Stow"
+      homebrew:
+        name: stow
+        state: present
+      tags:
+        - mac-minimal
+        - mac-full
+
+    - name: "Debian | Install GNU Stow"
+      apt:
+        name: stow
+        state: present
+      become: true
+      tags:
+        - linux
+
 ## 1Password
     - name: "MacOS | Install 1Password and 1Password CLI"
       homebrew:
@@ -99,17 +116,25 @@
       tags:
         - linux
 
-    - name: "Tmux | Configure tmux"
-      ansible.builtin.copy:
-        src: "{{ ansible_user_dir }}/.dotfiles/tmux/tmux.conf"
-        dest: "{{ ansible_user_dir }}/.config/"
-        mode: "0644"
-        directory_mode: "0755"
-        force: true
+    - name: "Tmux | Configure tmux using Stow"
+      ansible.builtin.command:
+        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_user_dir }} tmux"
       tags:
         - mac-minimal
         - mac-full
         - linux
+
+#    - name: "Tmux | Configure tmux"
+#      ansible.builtin.copy:
+#        src: "{{ ansible_user_dir }}/.dotfiles/tmux/tmux.conf"
+#        dest: "{{ ansible_user_dir }}/.config/"
+#        mode: "0644"
+#        directory_mode: "0755"
+#        force: true
+#      tags:
+#        - mac-minimal
+#        - mac-full
+#        - linux
 
 ## zsh
     - name: "MacOS | Install ZSH"
@@ -130,15 +155,23 @@
       tags:
         - linux
 
-    - name: "Zsh | Configure .zshrc"
-      ansible.builtin.copy:
-        src: "{{ ansible_user_dir }}/.dotfiles/zsh/.zshrc"
-        dest: "{{ ansible_user_dir }}/"
-        force: true
+    - name: "Zsh | Configure .zshrc using Stow"
+      ansible.builtin.command:
+        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_user_dir }} zsh"
       tags:
         - mac-minimal
         - mac-full
         - linux
+
+#    - name: "Zsh | Configure .zshrc"
+#      ansible.builtin.copy:
+#        src: "{{ ansible_user_dir }}/.dotfiles/zsh/.zshrc"
+#        dest: "{{ ansible_user_dir }}/"
+#        force: true
+#      tags:
+#        - mac-minimal
+#        - mac-full
+#        - linux
 
     - name: "Zsh | Detect oh-my-zsh"
       ansible.builtin.stat:
