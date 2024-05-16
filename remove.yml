@@ -14,13 +14,6 @@
       tags:
         - mac
 
-    - name: "Debian | Uninstall 1Password CLI"
-      ansible.builtin.apt:
-        name: 1password-cli
-        state: absent
-      tags:
-        - linux
-
 
 # kitty
     - name: "MacOS | Uninstall Kitty terminal emulator"
@@ -69,44 +62,6 @@
       tags:
         - linux
         - mac
-
-
-## node.js
-    - name: Uninstall TypeScript
-      npm:
-        name: typescript
-        state: absent
-        global: yes
-      tags:
-        - mac
-        - linux
-
-    - name: Uninstall React
-      npm:
-        name: react
-        state: absent
-        global: yes
-      tags:
-        - mac
-        - linux
-
-    - name: "MacOS | Uninstall Node.js & npm"
-      homebrew:
-        name:
-          - npm
-          - node
-        state: absent
-      tags:
-        - mac
-
-    - name: "Debian | Uninstall Node.js & npm"
-      ansible.builtin.apt:
-        name:
-          - npm
-          - nodejs
-        state: absent
-      tags:
-        - linux
 
 
 ## tmux
