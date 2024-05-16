@@ -3,6 +3,15 @@
   hosts: localhost
   tasks:
 
+## Remove the configs repo
+    - name: Remove .dotfiles directory
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.dotfiles"
+        state: absent
+      tags:
+        - linux
+        - mac
+
 ## 1Password
     - name: "MacOS | Uninstall 1Password and 1Password CLI"
       homebrew:
