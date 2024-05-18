@@ -2,32 +2,6 @@
 - name: play
   hosts: localhost
   tasks:
-  
-## Remove the configs repo
-    - name: Remove .dotfiles directory
-      ansible.builtin.file:
-        path: "{{ ansible_user_dir }}/.dotfiles"
-        state: absent
-      tags:
-        - linux
-        - mac
-        
- ##stow
-    - name: "Unstow Zsh configuration"
-      ansible.builtin.command:
-        cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-
-    - name: "Unstow Tmux configuration"
-      ansible.builtin.command:
-         cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux 
         
 ## 1Password
     - name: "MacOS | Uninstall 1Password and 1Password CLI"
@@ -89,6 +63,23 @@
         - linux
         - mac
 
+##stow
+    - name: "Unstow Zsh configuration"
+      ansible.builtin.command:
+        cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: "Unstow Tmux configuration"
+      ansible.builtin.command:
+         cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux 
+
 ## tmux
     - name: "MacOS | Uninstall tmux"
       homebrew:
@@ -119,7 +110,15 @@
       tags:
         - linux
         - mac
-
+        
+## Remove the configs repo
+    - name: Remove .dotfiles directory
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.dotfiles"
+        state: absent
+      tags:
+        - linux
+        - mac
 
 ## zsh
     - name: "Debian | Uninstall Zsh"
