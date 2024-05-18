@@ -82,8 +82,8 @@
         - linux
 
     - name: "Unstow Tmux configuration"
-     ansible.builtin.command:
-        cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
+      ansible.builtin.command:
+         cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
       tags:
         - mac-minimal
         - mac-full
