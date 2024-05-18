@@ -73,22 +73,12 @@
         - mac
         
 ##stow
-    - name: Unstow everything
-      shell: "stow -D zsh --target {{ ansible_env.HOME }} --verbose=2"
-      args:
-        chdir: '{{ ansible_env.HOME }}/.dotfiles'
-      register: result
-      changed_when: 'result.stderr is search("UNLINK: ")'
+    - name: "Unstow Zsh configuration"
+      ansible.builtin.command:
+        cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
       tags:
-        - linux
-
-    - name: Unstow everything
-      shell: "stow -D tmux --target {{ ansible_env.HOME }} --verbose=2"
-      args:
-        chdir: '{{ ansible_env.HOME }}/.dotfiles'
-      register: result
-      changed_when: 'result.stderr is search("UNLINK: ")'
-      tags:
+        - mac-minimal
+        - mac-full
         - linux
 
 
