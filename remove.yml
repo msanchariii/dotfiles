@@ -76,11 +76,21 @@
     - name: Unstow everything
       shell: "stow -D . --target {{ ansible_env.HOME }} --verbose=2"
       args:
-        chdir: '{{ ansible_env.HOME }}/.dotfiles'
+        chdir: '{{ ansible_env.HOME }}/.dotfiles/zsh'
       register: result
       changed_when: 'result.stderr is search("UNLINK: ")'
       tags:
         - linux
+
+    - name: Unstow everything
+      shell: "stow -D . --target {{ ansible_env.HOME }} --verbose=2"
+      args:
+        chdir: '{{ ansible_env.HOME }}/.dotfiles/tmux'
+      register: result
+      changed_when: 'result.stderr is search("UNLINK: ")'
+      tags:
+        - linux
+
 
 ## tmux
     - name: "MacOS | Uninstall tmux"
