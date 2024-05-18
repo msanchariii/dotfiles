@@ -33,8 +33,8 @@
 
     - name: Run stow
       shell: "stow . --target {{ ansible_env.HOME }} --verbose=2"
-      args:
-        chdir: '{{ ansible_env.HOME }}/.dotfiles'
+      # args:
+      #   chdir: '{{ ansible_env.HOME }}/.dotfiles'
       register: result
       changed_when: 'result.stderr is search("LINK: ")'
       tags:
