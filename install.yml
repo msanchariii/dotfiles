@@ -175,7 +175,7 @@
 
     - name: "Zsh | Configure .zshrc using Stow"
       ansible.builtin.command:
-        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_user_dir }} zsh"
+        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }}  zsh"
       tags:
         - mac-minimal
         - mac-full
