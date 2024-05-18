@@ -3,6 +3,15 @@
   hosts: localhost
   tasks:
 
+##stow
+    - name: "Unstow Zsh configuration"
+      ansible.builtin.command:
+        cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
 ## Remove the configs repo
     - name: Remove .dotfiles directory
       ansible.builtin.file:
@@ -72,16 +81,6 @@
         - linux
         - mac
         
-##stow
-    - name: "Unstow Zsh configuration"
-      ansible.builtin.command:
-        cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-
-
 ## tmux
     - name: "MacOS | Uninstall tmux"
       homebrew:
