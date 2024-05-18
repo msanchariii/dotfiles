@@ -171,6 +171,8 @@
         path: "{{ ansible_env.HOME }}/.zshrc"
         state: absent
       tags:
+        - mac-minimal
+        - mac-full
         - linux
 
     - name: "Zsh | Configure .zshrc using Stow"
