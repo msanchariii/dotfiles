@@ -73,7 +73,7 @@
         - mac
         
 ##stow
-     - name: Unstow everything
+    - name: Unstow everything
       shell: "stow -D . --target {{ ansible_env.HOME }} --verbose=2"
       args:
         chdir: '{{ ansible_env.HOME }}/.dotfiles'
