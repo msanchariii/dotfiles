@@ -40,14 +40,14 @@
     #   tags:
     #     - linux
 
-    - name: Unstow everything
-      shell: "stow -D . --target {{ ansible_env.HOME }} --verbose=2"
-      args:
-        chdir: '{{ ansible_env.HOME }}/.dotfiles'
-      register: result
-      changed_when: 'result.stderr is search("UNLINK: ")'
-      tags:
-        - linux
+    # - name: Unstow everything
+    #   shell: "stow -D . --target {{ ansible_env.HOME }} --verbose=2"
+    #   args:
+    #     chdir: '{{ ansible_env.HOME }}/.dotfiles'
+    #   register: result
+    #   changed_when: 'result.stderr is search("UNLINK: ")'
+    #   tags:
+    #     - linux
   
 ## 1Password
     - name: "MacOS | Install 1Password and 1Password CLI"
@@ -134,13 +134,13 @@
       tags:
         - linux
 
-    # - name: "Tmux | Configure tmux using Stow"
-    #   ansible.builtin.command:
-    #     cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
+    - name: "Tmux | Configure tmux using Stow"
+      ansible.builtin.command:
+        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
 #    - name: "Tmux | Configure tmux"
 #      ansible.builtin.copy:
@@ -173,13 +173,13 @@
       tags:
         - linux
 
-    # - name: "Zsh | Configure .zshrc using Stow"
-    #   ansible.builtin.command:
-    #     cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_user_dir }} zsh"
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
+    - name: "Zsh | Configure .zshrc using Stow"
+      ansible.builtin.command:
+        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_user_dir }} zsh"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
 #    - name: "Zsh | Configure .zshrc"
 #      ansible.builtin.copy:
