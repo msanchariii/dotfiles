@@ -173,13 +173,20 @@
       tags:
         - linux
 
-    # - name: "Zsh | Configure .zshrc using Stow"
-    #   ansible.builtin.command:
-    #     cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
+    - name: Remove existing .zshrc file
+      file:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        state: absent
+      tags:
+        - linux
+
+    - name: "Zsh | Configure .zshrc using Stow"
+      ansible.builtin.command:
+        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
 #    - name: "Zsh | Configure .zshrc"
 #      ansible.builtin.copy:
@@ -232,14 +239,14 @@
         - mac-full
         - linux
 
-    - name: Add zsh-syntax-highlighting to .zshrc
-      ansible.builtin.lineinfile:
-        dest: "{{ ansible_user_dir }}/.zshrc"
-        line: "source {{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Add zsh-syntax-highlighting to .zshrc
+    #   ansible.builtin.lineinfile:
+    #     dest: "{{ ansible_user_dir }}/.zshrc"
+    #     line: "source {{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
     - name: Clone zsh-autosuggestions repository
       ansible.builtin.git:
@@ -251,14 +258,14 @@
         - mac-full
         - linux
 
-    - name: Add zsh-autosuggestions to .zshrc
-      ansible.builtin.lineinfile:
-        dest: "{{ ansible_user_dir }}/.zshrc"
-        line: "source {{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Add zsh-autosuggestions to .zshrc
+    #   ansible.builtin.lineinfile:
+    #     dest: "{{ ansible_user_dir }}/.zshrc"
+    #     line: "source {{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
     - name: "Zsh | Update .zshrc for all users"
       shell: |
