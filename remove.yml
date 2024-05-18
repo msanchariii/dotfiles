@@ -74,18 +74,18 @@
         
 ##stow
     - name: Unstow everything
-      shell: "stow -D . --target {{ ansible_env.HOME }} --verbose=2"
+      shell: "stow -D zsh --target {{ ansible_env.HOME }} --verbose=2"
       args:
-        chdir: '{{ ansible_env.HOME }}/.dotfiles/zsh'
+        chdir: '{{ ansible_env.HOME }}/.dotfiles'
       register: result
       changed_when: 'result.stderr is search("UNLINK: ")'
       tags:
         - linux
 
     - name: Unstow everything
-      shell: "stow -D . --target {{ ansible_env.HOME }} --verbose=2"
+      shell: "stow -D tmux --target {{ ansible_env.HOME }} --verbose=2"
       args:
-        chdir: '{{ ansible_env.HOME }}/.dotfiles/tmux'
+        chdir: '{{ ansible_env.HOME }}/.dotfiles'
       register: result
       changed_when: 'result.stderr is search("UNLINK: ")'
       tags:
