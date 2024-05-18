@@ -130,13 +130,13 @@
       tags:
         - linux
 
-    - name: "Tmux | Configure tmux using Stow"
-      ansible.builtin.command:
-        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: "Tmux | Configure tmux using Stow"
+    #   ansible.builtin.command:
+    #     cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
 #    - name: "Tmux | Configure tmux"
 #      ansible.builtin.copy:
@@ -169,13 +169,13 @@
       tags:
         - linux
 
-    - name: "Zsh | Configure .zshrc using Stow"
-      ansible.builtin.command:
-        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_user_dir }} zsh"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: "Zsh | Configure .zshrc using Stow"
+    #   ansible.builtin.command:
+    #     cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_user_dir }} zsh"
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
 #    - name: "Zsh | Configure .zshrc"
 #      ansible.builtin.copy:
