@@ -40,14 +40,7 @@
     #   tags:
     #     - linux
 
-    # - name: Unstow everything
-    #   shell: "stow -D . --target {{ ansible_env.HOME }} --verbose=2"
-    #   args:
-    #     chdir: '{{ ansible_env.HOME }}/.dotfiles'
-    #   register: result
-    #   changed_when: 'result.stderr is search("UNLINK: ")'
-    #   tags:
-    #     - linux
+   
   
 ## 1Password
     - name: "MacOS | Install 1Password and 1Password CLI"
