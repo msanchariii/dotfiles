@@ -166,22 +166,22 @@
       tags:
         - linux
 
-    - name: Remove existing .zshrc file
-      file:
-        path: "{{ lookup('env', 'HOME') }}/.zshrc"
-        state: absent
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Remove existing .zshrc file
+    #   file:
+    #     path: "{{ ansible_env.HOME }}/.zshrc"
+    #     state: absent
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
-    - name: "Zsh | Configure .zshrc using Stow"
-      ansible.builtin.command:
-        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: "Zsh | Configure .zshrc using Stow"
+    #   ansible.builtin.command:
+    #     cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
 #    - name: "Zsh | Configure .zshrc"
 #      ansible.builtin.copy:
@@ -267,6 +267,23 @@
         source ~/.zshrc
       args:
         executable: /bin/zsh
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+        
+    - name: Remove existing .zshrc file
+      file:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: "Zsh | Configure .zshrc using Stow"
+      ansible.builtin.command:
+        cmd: "stow -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
       tags:
         - mac-minimal
         - mac-full
