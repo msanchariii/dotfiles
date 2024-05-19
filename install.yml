@@ -79,7 +79,7 @@
         name: user.email
         scope: global
         value: "{{ git_user_email }}"
-      no_log: false
+      no_log: true
       tags:
         - mac-minimal
         - mac-full
