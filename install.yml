@@ -21,6 +21,10 @@
         src: credentials.yml  # Path to the source credentials file
         dest: "{{ ansible_user_dir }}/credentials.yml"  # Destination directory
       become: yes
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
 ## Dynamically include vars file after cloning
     - name: Include vars file from the cloned repo
