@@ -168,7 +168,7 @@
 
     - name: Remove existing .zshrc file
       file:
-        path: "{{ ansible_env.HOME }}/.zshrc"
+        path: "{{ lookup('env', 'HOME') }}/.zshrc"
         state: absent
       tags:
         - mac-minimal
