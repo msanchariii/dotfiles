@@ -9,7 +9,7 @@
     - name: Clone the .dotfiles repository into a hidden directory
       git:
         repo: 'https://github.com/suyashbhawsar/.dotfiles.git'
-        dest: '{{ ansible_env.HOME }}/.dotfiles'
+        dest: '{{ ansible_user_dir }}/.dotfiles'
         update: yes
       tags:
         - mac-minimal
@@ -19,7 +19,7 @@
 ## Dynamically include vars file after cloning
     - name: Include vars file from the cloned repo
       include_vars:
-        file: "{{ ansible_env.HOME }}/.dotfiles/git/credentials.yml"
+        file: "{{ ansible_user_dir }}/.dotfiles/git/credentials.yml"
       tags:
         - mac-minimal
         - mac-full
