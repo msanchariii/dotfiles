@@ -102,6 +102,10 @@
         path: /root/.ssh
         state: directory
         mode: '0700'
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
     - name: "SSH | Copy SSH keys"
       copy:
