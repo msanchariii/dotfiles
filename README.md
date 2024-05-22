@@ -29,8 +29,9 @@ ___
 #### Install packages & configs in Linux:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags linux
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags linux --vault-password-file pass
 ```
+# Create pass file which contains your password for the encrypted file in the directory where you are willing to run this command   
 
 #### Remove packages & configs in Linux:
 
