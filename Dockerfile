@@ -7,4 +7,7 @@ RUN apt-get update && \
         git \
         gnupg \
         python3 \
+        apt-transport-https \
+        ca-certificates \
+        curl
     && rm -rf /var/lib/apt/lists/*
