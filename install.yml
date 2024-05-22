@@ -139,13 +139,13 @@
         - mac-full
         - linux
 
-    - name: Debug SSH agent output
-      debug:
-        msg: "{{ ssh_agent_output.stdout }}"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Debug SSH agent output
+    #   debug:
+    #     msg: "{{ ssh_agent_output.stdout }}"
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
     - name: Set SSH_AUTH_SOCK environment variable
       set_fact:
@@ -165,13 +165,13 @@
         - mac-full
         - linux
 
-    - name: Debug SSH_AUTH_SOCK
-      debug:
-        msg: "SSH_AUTH_SOCK is set to {{ ssh_auth_sock }}"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Debug SSH_AUTH_SOCK
+    #   debug:
+    #     msg: "SSH_AUTH_SOCK is set to {{ ssh_auth_sock }}"
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
     - name: Ensure correct permissions on SSH private key
       file:
