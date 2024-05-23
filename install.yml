@@ -135,21 +135,21 @@
         - mac-full
         - linux
 
-    - name: Authenticate with service account
-      command: gcloud auth activate-service-account --key-file /path/to/service-account-key-file.json
-      become: false
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Authenticate with service account
+    #   command: gcloud auth activate-service-account --key-file /path/to/service-account-key-file.json
+    #   become: false
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
-    - name: Configure gcloud compute SSH
-      command: gcloud compute config-ssh
-      become: false
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Configure gcloud compute SSH
+    #   command: gcloud compute config-ssh
+    #   become: false
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
 ##git
     - name: "Git | Set user.email"
