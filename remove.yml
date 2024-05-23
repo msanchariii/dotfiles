@@ -64,6 +64,55 @@
         - mac-minimal
         - mac-full
         - linux
+
+##gcloud
+    - name: Uninstall Google Cloud SDK
+      apt:
+        name: google-cloud-cli
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Remove Google Cloud SDK repository file
+      file:
+        path: /etc/apt/sources.list.d/google-cloud-sdk.list
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Remove Google Cloud public GPG key
+      file:
+        path: /usr/share/keyrings/cloud.google.gpg
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Remove required packages (optional)
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - gnupg
+          - curl
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Update apt package list
+      apt:
+        update_cache: yes
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
         
 ## 1Password
     - name: "MacOS | Uninstall 1Password and 1Password CLI"
