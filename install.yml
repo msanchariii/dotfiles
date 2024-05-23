@@ -154,6 +154,7 @@
       git:
         repo: 'git@github.com:vrushalikudande/vrushalii.git'
         dest: '{{ ansible_user_dir }}/.dotfiles'
+        accept_hostkey: yes
         update: yes
       tags:
         - mac-minimal
