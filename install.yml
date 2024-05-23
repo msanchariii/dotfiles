@@ -5,36 +5,6 @@
     - credentials.yml
   tasks:
 
-# # Clone the configs repo
-#     - name: Clone the .dotfiles repository into a hidden directory
-#       git:
-#         repo: 'https://github.com/suyashbhawsar/.dotfiles.git'
-#         dest: '{{ ansible_user_dir }}/.dotfiles'
-#         update: yes
-#       tags:
-#         - mac-minimal
-#         - mac-full
-#         - linux
-
-#     - name: Copy credentials to the user's directory
-#       copy:
-#         src: credentials.yml  # Path to the source credentials file
-#         dest: "{{ ansible_user_dir }}/credentials.yml"  # Destination directory
-#       become: yes
-#       tags:
-#         - mac-minimal
-#         - mac-full
-#         - linux
-
-# ## Dynamically include vars file after cloning
-#     - name: Include vars file from the cloned repo
-#       include_vars:
-#         file: "{{ ansible_user_dir }}/credentials.yml"
-#       tags:
-#         - mac-minimal
-#         - mac-full
-#         - linux
-
 # ## GNU Stow
 #     - name: "MacOS | Install GNU Stow"
 #       homebrew:
@@ -51,16 +21,6 @@
 #       become: true
 #       tags:
 #         - linux
-
-#     # - name: Run stow
-#     #   shell: "stow . --target ~/ --verbose=2"
-#     #   args:
-#     #     chdir: '{{ ansible_env.HOME }}/.dotfiles'
-#     #   register: result
-#     #   changed_when: 'result.stderr is search("LINK: ")'
-#     #   tags:
-#     #     - linux
-
    
   
 # ## 1Password
@@ -83,73 +43,6 @@
 #       tags:
 #         - mac-full
 
-# ###gcloud
-#     - name: Install required packages
-#       apt:
-#         name:
-#           - apt-transport-https
-#           - ca-certificates
-#           - gnupg
-#           - curl
-#         state: present
-#       tags:
-#         - mac-minimal
-#         - mac-full
-#         - linux
-        
-#     - name: Add Google Cloud public GPG key
-#       shell: curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-#       become: true
-#       tags:
-#         - mac-minimal
-#         - mac-full
-#         - linux
-      
-
-#     - name: Add Google Cloud SDK repository
-#       copy:
-#         content: "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main\n"
-#         dest: /etc/apt/sources.list.d/google-cloud-sdk.list
-#         owner: root
-#         group: root
-#         mode: '0644'
-#       tags:
-#         - mac-minimal
-#         - mac-full
-#         - linux
-
-#     - name: Update apt package list
-#       apt:
-#         update_cache: yes
-#       tags:
-#         - mac-minimal
-#         - mac-full
-#         - linux
-
-#     - name: Install Google Cloud SDK
-#       apt:
-#         name: google-cloud-cli
-#         state: present
-#       tags:
-#         - mac-minimal
-#         - mac-full
-#         - linux
-
-    # - name: Authenticate with service account
-    #   command: gcloud auth activate-service-account --key-file /path/to/service-account-key-file.json
-    #   become: false
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
-
-    # - name: Configure gcloud compute SSH
-    #   command: gcloud compute config-ssh
-    #   become: false
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
 
 ##git
     - name: "Git | Set user.email"
@@ -215,23 +108,23 @@
     #     - mac-full
     #     - linux
 
-    - name: Set SSH_AUTH_SOCK environment variable
-      set_fact:
-        ssh_auth_sock: "{{ ssh_agent_output.stdout | regex_search('SSH_AUTH_SOCK=([^;]+);', '\\1') }}"
-      when: ssh_agent_output.stdout is defined
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Set SSH_AUTH_SOCK environment variable
+    #   set_fact:
+    #     ssh_auth_sock: "{{ ssh_agent_output.stdout | regex_search('SSH_AUTH_SOCK=([^;]+);', '\\1') }}"
+    #   when: ssh_agent_output.stdout is defined
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
-    - name: Ensure SSH_AUTH_SOCK is set
-      fail:
-        msg: "Failed to start ssh-agent or extract SSH_AUTH_SOCK."
-      when: ssh_auth_sock is not defined
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Ensure SSH_AUTH_SOCK is set
+    #   fail:
+    #     msg: "Failed to start ssh-agent or extract SSH_AUTH_SOCK."
+    #   when: ssh_auth_sock is not defined
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
     # - name: Debug SSH_AUTH_SOCK
     #   debug:
@@ -241,20 +134,100 @@
     #     - mac-full
     #     - linux
 
-    - name: Ensure correct permissions on SSH private key
-      file:
-        path: "{{ ansible_user_dir }}/.ssh/id_ed25519"
-        mode: '0600'
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+    # - name: Ensure correct permissions on SSH private key
+    #   file:
+    #     path: "{{ ansible_user_dir }}/.ssh/id_ed25519"
+    #     mode: '0600'
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
 
     # - name: Add SSH private key to the agent
     #   shell: ssh-add "{{ ansible_user_dir }}/.ssh/id_ed25519"
     #   environment:
     #     SSH_AUTH_SOCK: "{{ ssh_auth_sock }}"
     #   when: ssh_auth_sock is defined
+
+# Clone the configs repo
+    - name: Clone the .dotfiles repository into a hidden directory
+      git:
+        repo: 'https://github.com/suyashbhawsar/.dotfiles.git'
+        dest: '{{ ansible_user_dir }}/.dotfiles'
+        update: yes
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+# ###gcloud
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - gnupg
+          - curl
+        state: present
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+        
+    - name: Add Google Cloud public GPG key
+      shell: curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+      become: true
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+      
+
+    - name: Add Google Cloud SDK repository
+      copy:
+        content: "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main\n"
+        dest: /etc/apt/sources.list.d/google-cloud-sdk.list
+        owner: root
+        group: root
+        mode: '0644'
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Update apt package list
+      apt:
+        update_cache: yes
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Install Google Cloud SDK
+      apt:
+        name: google-cloud-cli
+        state: present
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    # - name: Authenticate with service account
+    #   command: gcloud auth activate-service-account --key-file /path/to/service-account-key-file.json
+    #   become: false
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
+
+    # - name: Configure gcloud compute SSH
+    #   command: gcloud compute config-ssh
+    #   become: false
+    #   tags:
+    #     - mac-minimal
+    #     - mac-full
+    #     - linux
+
 
 ## neovim
     - name: "MacOS | Install Neovim & its Dependencies"
