@@ -2,6 +2,68 @@
 - name: play
   hosts: localhost
   tasks:
+## git
+
+    - name: "Git | Unset user.email"
+      community.general.git_config:
+        name: user.email
+        scope: global
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: "Git | Unset user.name"
+      community.general.git_config:
+        name: user.name
+        scope: global
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Remove .ssh directory
+      file:
+        path: /root/.ssh
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: "SSH | Remove specific SSH keys"
+      file:
+        path: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"
+        state: absent
+      loop_control:
+        loop_var: ssh_key_item
+      with_items: "{{ ssh_key | default({}) | dict2items }}"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Stop SSH agent
+      shell: |
+        ssh_agent_pid=$(pgrep ssh-agent)
+        if [ -n "$ssh_agent_pid" ]; then
+          kill $ssh_agent_pid
+        fi
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Remove the .dotfiles repository
+      file:
+        path: '{{ ansible_user_dir }}/.dotfiles'
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
         
 ## 1Password
     - name: "MacOS | Uninstall 1Password and 1Password CLI"
