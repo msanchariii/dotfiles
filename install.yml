@@ -3,6 +3,8 @@
   hosts: localhost
   vars_files: 
     - credentials.yml
+  vars:
+    vault_password: ""
   tasks:
 
 ## GNU Stow
@@ -45,6 +47,25 @@
 
 
 ##git
+    - name: Prompt for vault password
+      ansible.builtin.pause:
+        prompt: "Please enter the vault password"
+      register: vault_password_prompt
+      no_log: true
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Set vault password
+      set_fact:
+        vault_password: "{{ vault_password_prompt.user_input }}"
+      no_log: true
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+      
     - name: "Git | Set user.email"
       community.general.git_config:
         name: user.email
