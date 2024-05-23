@@ -5,43 +5,43 @@
     - credentials.yml
   tasks:
 
-# ## GNU Stow
-#     - name: "MacOS | Install GNU Stow"
-#       homebrew:
-#         name: stow
-#         state: present
-#       tags:
-#         - mac-minimal
-#         - mac-full
+## GNU Stow
+    - name: "MacOS | Install GNU Stow"
+      homebrew:
+        name: stow
+        state: present
+      tags:
+        - mac-minimal
+        - mac-full
   
-#     - name: "Debian | Install GNU Stow"
-#       apt:
-#         name: stow
-#         state: present
-#       become: true
-#       tags:
-#         - linux
+    - name: "Debian | Install GNU Stow"
+      apt:
+        name: stow
+        state: present
+      become: true
+      tags:
+        - linux
    
   
-# ## 1Password
-#     - name: "MacOS | Install 1Password and 1Password CLI"
-#       homebrew:
-#         name: "{{ item }}"
-#         state: present
-#       with_items:
-#         - 1password
-#         - 1password-cli
-#       tags:
-#         - mac-full
+## 1Password
+    - name: "MacOS | Install 1Password and 1Password CLI"
+      homebrew:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - 1password
+        - 1password-cli
+      tags:
+        - mac-full
 
 
-# ## kitty
-#     - name: "MacOS | Install Kitty emulator"
-#       homebrew:
-#         name: kitty
-#         state: present
-#       tags:
-#         - mac-full
+## kitty
+    - name: "MacOS | Install Kitty emulator"
+      homebrew:
+        name: kitty
+        state: present
+      tags:
+        - mac-full
 
 
 ##git
@@ -99,55 +99,6 @@
         - mac-minimal
         - mac-full
         - linux
-
-    # - name: Debug SSH agent output
-    #   debug:
-    #     msg: "{{ ssh_agent_output.stdout }}"
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
-
-    # - name: Set SSH_AUTH_SOCK environment variable
-    #   set_fact:
-    #     ssh_auth_sock: "{{ ssh_agent_output.stdout | regex_search('SSH_AUTH_SOCK=([^;]+);', '\\1') }}"
-    #   when: ssh_agent_output.stdout is defined
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
-
-    # - name: Ensure SSH_AUTH_SOCK is set
-    #   fail:
-    #     msg: "Failed to start ssh-agent or extract SSH_AUTH_SOCK."
-    #   when: ssh_auth_sock is not defined
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
-
-    # - name: Debug SSH_AUTH_SOCK
-    #   debug:
-    #     msg: "SSH_AUTH_SOCK is set to {{ ssh_auth_sock }}"
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
-
-    # - name: Ensure correct permissions on SSH private key
-    #   file:
-    #     path: "{{ ansible_user_dir }}/.ssh/id_ed25519"
-    #     mode: '0600'
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
-
-    # - name: Add SSH private key to the agent
-    #   shell: ssh-add "{{ ansible_user_dir }}/.ssh/id_ed25519"
-    #   environment:
-    #     SSH_AUTH_SOCK: "{{ ssh_auth_sock }}"
-    #   when: ssh_auth_sock is defined
 
 # Clone the configs repo
     - name: Clone the .dotfiles repository into a hidden directory
