@@ -113,6 +113,26 @@
         - mac-minimal
         - mac-full
         - linux
+
+    - name: Remove the service account key file
+      file:
+        path: /path/to/service-account-key-file.json
+        state: absent
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Remove gcloud compute SSH config entries
+      lineinfile:
+        path: "{{ ansible_user_dir }}/.ssh/config"
+        state: absent
+        regexp: "^# Added by gcloud"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
         
 ## 1Password
     - name: "MacOS | Uninstall 1Password and 1Password CLI"
