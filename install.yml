@@ -152,7 +152,7 @@
 # Clone the configs repo
     - name: Clone the .dotfiles repository into a hidden directory
       git:
-        repo: 'https://github.com/suyashbhawsar/.dotfiles.git'
+        repo: 'git@github.com:vrushalikudande/vrushalii.git'
         dest: '{{ ansible_user_dir }}/.dotfiles'
         update: yes
       tags:
