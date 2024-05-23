@@ -1,8 +1,8 @@
 ---
 - name: play
   hosts: localhost
-  # vars_files: 
-  #   - "{{ ansible_user_dir }}/.dotfiles/git/credentials.yml"
+  vars_files: 
+    - credentials.yml
   tasks:
 
 # # Clone the configs repo
@@ -16,24 +16,24 @@
 #         - mac-full
 #         - linux
 
-    - name: Copy credentials to the user's directory
-      copy:
-        src: credentials.yml  # Path to the source credentials file
-        dest: "{{ ansible_user_dir }}/credentials.yml"  # Destination directory
-      become: yes
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+#     - name: Copy credentials to the user's directory
+#       copy:
+#         src: credentials.yml  # Path to the source credentials file
+#         dest: "{{ ansible_user_dir }}/credentials.yml"  # Destination directory
+#       become: yes
+#       tags:
+#         - mac-minimal
+#         - mac-full
+#         - linux
 
-## Dynamically include vars file after cloning
-    - name: Include vars file from the cloned repo
-      include_vars:
-        file: "{{ ansible_user_dir }}/credentials.yml"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+# ## Dynamically include vars file after cloning
+#     - name: Include vars file from the cloned repo
+#       include_vars:
+#         file: "{{ ansible_user_dir }}/credentials.yml"
+#       tags:
+#         - mac-minimal
+#         - mac-full
+#         - linux
 
 # ## GNU Stow
 #     - name: "MacOS | Install GNU Stow"
