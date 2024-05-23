@@ -5,26 +5,26 @@
   #   - "{{ ansible_user_dir }}/.dotfiles/git/credentials.yml"
   tasks:
 
-# Clone the configs repo
-    - name: Clone the .dotfiles repository into a hidden directory
-      git:
-        repo: 'https://github.com/suyashbhawsar/.dotfiles.git'
-        dest: '{{ ansible_user_dir }}/.dotfiles'
-        update: yes
+# # Clone the configs repo
+#     - name: Clone the .dotfiles repository into a hidden directory
+#       git:
+#         repo: 'https://github.com/suyashbhawsar/.dotfiles.git'
+#         dest: '{{ ansible_user_dir }}/.dotfiles'
+#         update: yes
+#       tags:
+#         - mac-minimal
+#         - mac-full
+#         - linux
+
+    - name: Copy credentials to the user's directory
+      copy:
+        src: credentials.yml  # Path to the source credentials file
+        dest: "{{ ansible_user_dir }}/credentials.yml"  # Destination directory
+      become: yes
       tags:
         - mac-minimal
         - mac-full
         - linux
-
-    # - name: Copy credentials to the user's directory
-    #   copy:
-    #     src: credentials.yml  # Path to the source credentials file
-    #     dest: "{{ ansible_user_dir }}/credentials.yml"  # Destination directory
-    #   become: yes
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
 
 ## Dynamically include vars file after cloning
     - name: Include vars file from the cloned repo
