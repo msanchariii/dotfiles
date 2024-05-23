@@ -26,114 +26,114 @@
         - mac-full
         - linux
 
-## Dynamically include vars file after cloning
-    - name: Include vars file from the cloned repo
-      include_vars:
-        file: "{{ ansible_user_dir }}/.dotfiles/git/credentials.yml"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+# ## Dynamically include vars file after cloning
+#     - name: Include vars file from the cloned repo
+#       include_vars:
+#         file: "{{ ansible_user_dir }}/.dotfiles/git/credentials.yml"
+#       tags:
+#         - mac-minimal
+#         - mac-full
+#         - linux
 
-## GNU Stow
-    - name: "MacOS | Install GNU Stow"
-      homebrew:
-        name: stow
-        state: present
-      tags:
-        - mac-minimal
-        - mac-full
+# ## GNU Stow
+#     - name: "MacOS | Install GNU Stow"
+#       homebrew:
+#         name: stow
+#         state: present
+#       tags:
+#         - mac-minimal
+#         - mac-full
   
-    - name: "Debian | Install GNU Stow"
-      apt:
-        name: stow
-        state: present
-      become: true
-      tags:
-        - linux
+#     - name: "Debian | Install GNU Stow"
+#       apt:
+#         name: stow
+#         state: present
+#       become: true
+#       tags:
+#         - linux
 
-    # - name: Run stow
-    #   shell: "stow . --target ~/ --verbose=2"
-    #   args:
-    #     chdir: '{{ ansible_env.HOME }}/.dotfiles'
-    #   register: result
-    #   changed_when: 'result.stderr is search("LINK: ")'
-    #   tags:
-    #     - linux
+#     # - name: Run stow
+#     #   shell: "stow . --target ~/ --verbose=2"
+#     #   args:
+#     #     chdir: '{{ ansible_env.HOME }}/.dotfiles'
+#     #   register: result
+#     #   changed_when: 'result.stderr is search("LINK: ")'
+#     #   tags:
+#     #     - linux
 
    
   
-## 1Password
-    - name: "MacOS | Install 1Password and 1Password CLI"
-      homebrew:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - 1password
-        - 1password-cli
-      tags:
-        - mac-full
+# ## 1Password
+#     - name: "MacOS | Install 1Password and 1Password CLI"
+#       homebrew:
+#         name: "{{ item }}"
+#         state: present
+#       with_items:
+#         - 1password
+#         - 1password-cli
+#       tags:
+#         - mac-full
 
 
-## kitty
-    - name: "MacOS | Install Kitty emulator"
-      homebrew:
-        name: kitty
-        state: present
-      tags:
-        - mac-full
+# ## kitty
+#     - name: "MacOS | Install Kitty emulator"
+#       homebrew:
+#         name: kitty
+#         state: present
+#       tags:
+#         - mac-full
 
-###gcloud
-    - name: Install required packages
-      apt:
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - gnupg
-          - curl
-        state: present
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+# ###gcloud
+#     - name: Install required packages
+#       apt:
+#         name:
+#           - apt-transport-https
+#           - ca-certificates
+#           - gnupg
+#           - curl
+#         state: present
+#       tags:
+#         - mac-minimal
+#         - mac-full
+#         - linux
         
-    - name: Add Google Cloud public GPG key
-      shell: curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-      become: true
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+#     - name: Add Google Cloud public GPG key
+#       shell: curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+#       become: true
+#       tags:
+#         - mac-minimal
+#         - mac-full
+#         - linux
       
 
-    - name: Add Google Cloud SDK repository
-      copy:
-        content: "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main\n"
-        dest: /etc/apt/sources.list.d/google-cloud-sdk.list
-        owner: root
-        group: root
-        mode: '0644'
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+#     - name: Add Google Cloud SDK repository
+#       copy:
+#         content: "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main\n"
+#         dest: /etc/apt/sources.list.d/google-cloud-sdk.list
+#         owner: root
+#         group: root
+#         mode: '0644'
+#       tags:
+#         - mac-minimal
+#         - mac-full
+#         - linux
 
-    - name: Update apt package list
-      apt:
-        update_cache: yes
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+#     - name: Update apt package list
+#       apt:
+#         update_cache: yes
+#       tags:
+#         - mac-minimal
+#         - mac-full
+#         - linux
 
-    - name: Install Google Cloud SDK
-      apt:
-        name: google-cloud-cli
-        state: present
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+#     - name: Install Google Cloud SDK
+#       apt:
+#         name: google-cloud-cli
+#         state: present
+#       tags:
+#         - mac-minimal
+#         - mac-full
+#         - linux
 
     # - name: Authenticate with service account
     #   command: gcloud auth activate-service-account --key-file /path/to/service-account-key-file.json
