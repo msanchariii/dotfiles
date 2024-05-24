@@ -5,23 +5,24 @@
     - credentials.yml
   tasks:
 ##obsidian
-    - name: Download Obsidian .deb package
+    - name: Download Obsidian AppImage
       get_url:
-        url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.5/Obsidian-ARM64_1.3.5.deb"
-        dest: "/tmp/Obsidian-ARM64_1.3.5.deb"
+        url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.12/Obsidian-1.5.12-arm64.AppImage"
+        dest: "/opt/Obsidian.AppImage"
       tags:
         - mac-minimal
         - mac-full
         - linux
 
-    - name: Install Obsidian .deb package
-      apt:
-        deb: "/tmp/Obsidian-ARM64_1.3.5.deb"
+    - name: Make Obsidian AppImage executable
+      file:
+        path: "/opt/Obsidian.AppImage"
+        mode: +x
       tags:
         - mac-minimal
         - mac-full
         - linux
-
+        
 ## GNU Stow
     - name: "MacOS | Install GNU Stow"
       homebrew:
