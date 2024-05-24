@@ -7,8 +7,8 @@
 ##obsidian
     - name: Download Obsidian .deb package
       get_url:
-        url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.5/obsidian_1.3.5_arm64.deb"
-        dest: "/tmp/obsidian_1.3.5_arm64.deb"
+        url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.5/Obsidian-ARM64_1.3.5.deb"
+        dest: "/tmp/Obsidian-ARM64_1.3.5.deb"
       tags:
         - mac-minimal
         - mac-full
@@ -16,7 +16,7 @@
 
     - name: Install Obsidian .deb package
       apt:
-        deb: "/tmp/obsidian_1.3.5_arm64.deb"
+        deb: "/tmp/Obsidian-ARM64_1.3.5.deb"
       tags:
         - mac-minimal
         - mac-full
