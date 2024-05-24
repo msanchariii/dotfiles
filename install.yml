@@ -27,24 +27,25 @@
         - mac-full
 
     - name: Mount Obsidian DMG
-      community.general.hdiutil:
-        src: "/tmp/Obsidian.dmg"
-        state: mounted
+      ansible.builtin.shell: |
+        hdiutil attach /tmp/Obsidian.dmg
+      register: mount_output
       tags:
         - mac-full
 
+
     - name: Copy Obsidian to Applications folder
-      ansible.builtin.command: "cp -R /Volumes/Obsidian/Obsidian.app /Applications/Obsidian.app"
+      ansible.builtin.command: "cp -R {{ mount_output.stdout_lines[-1].split()[2] }}/Obsidian.app /Applications/Obsidian.app"
       become: yes
       tags:
         - mac-full
 
     - name: Unmount Obsidian DMG
-      community.general.hdiutil:
-        src: "/Volumes/Obsidian"
-        state: unmounted
+      ansible.builtin.shell: |
+        hdiutil detach {{ mount_output.stdout_lines[-1].split()[0] }}
       tags:
         - mac-full
+
 
 ## GNU Stow
     - name: "MacOS | Install GNU Stow"
