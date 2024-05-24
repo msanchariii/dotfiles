@@ -10,8 +10,6 @@
         url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.12/Obsidian-1.5.12-arm64.AppImage"
         dest: "/opt/Obsidian.AppImage"
       tags:
-        - mac-minimal
-        - mac-full
         - linux
 
     - name: Make Obsidian AppImage executable
@@ -19,10 +17,35 @@
         path: "/opt/Obsidian.AppImage"
         mode: +x
       tags:
-        - mac-minimal
-        - mac-full
         - linux
-        
+
+    - name: Download Obsidian DMG
+      ansible.builtin.get_url:
+        url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.12/Obsidian-1.5.12-universal.dmg"
+        dest: "/tmp/Obsidian.dmg"
+      tags:
+        - mac-full
+
+    - name: Mount Obsidian DMG
+      community.general.hdiutil:
+        src: "/tmp/Obsidian.dmg"
+        state: mounted
+      tags:
+        - mac-full
+
+    - name: Copy Obsidian to Applications folder
+      ansible.builtin.command: "cp -R /Volumes/Obsidian/Obsidian.app /Applications/Obsidian.app"
+      become: yes
+      tags:
+        - mac-full
+
+    - name: Unmount Obsidian DMG
+      community.general.hdiutil:
+        src: "/Volumes/Obsidian"
+        state: unmounted
+      tags:
+        - mac-full
+
 ## GNU Stow
     - name: "MacOS | Install GNU Stow"
       homebrew:
