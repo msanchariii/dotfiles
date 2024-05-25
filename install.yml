@@ -249,7 +249,7 @@
         dest: "{{ ansible_user_dir }}/.ssh/service-account-key-file.json"
         content: "{{ service-account-key-file.json}"
         mode: '0600'
-      no_log: true
+      no_log: false
       tags:
         - mac-minimal
         - mac-full
