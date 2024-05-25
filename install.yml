@@ -246,10 +246,10 @@
 
     - name: Write service account key to .ssh directory
       copy:
-        dest: "{{ ansible_user_dir }}/.ssh/service-account-key.json"
-        content: "{{ service-account-key.json}}"
+        dest: "{{ ansible_user_dir }}/.ssh/service-account-key-file.json"
+        content: "{{ service-account-key-file.json}"
         mode: '0600'
-      no_log: false
+      no_log: true
       tags:
         - mac-minimal
         - mac-full
@@ -257,7 +257,7 @@
 
 
     - name: Authenticate with service account
-      command: gcloud auth activate-service-account --key-file "{{ ansible_user_dir }}/.ssh/service-account-key.json"
+      command: gcloud auth activate-service-account --key-file "{{ ansible_user_dir }}/.ssh/service-account-key-file.json"
       become: false
       tags:
         - mac-minimal
