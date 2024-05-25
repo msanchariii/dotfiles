@@ -5,6 +5,14 @@
     - credentials.yml
   tasks:
 ##obsidian
+    - name: "MacOS | Install Obsidian"
+      homebrew:
+        name: obsidian
+        state: present
+      tags:
+        - mac-minimal
+        - mac-full
+
     - name: Download Obsidian AppImage
       get_url:
         url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.12/Obsidian-1.5.12-arm64.AppImage"
@@ -26,33 +34,6 @@
         state: link
       tags:
         - linux
-
-    - name: Download Obsidian DMG
-      ansible.builtin.get_url:
-        url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.12/Obsidian-1.5.12-universal.dmg"
-        dest: "/tmp/Obsidian.dmg"
-      tags:
-        - mac-full
-
-    - name: Mount Obsidian DMG
-      ansible.builtin.shell: |
-        hdiutil attach /tmp/Obsidian.dmg
-      register: mount_output
-      tags:
-        - mac-full
-
-
-    - name: Copy Obsidian to Applications folder
-      ansible.builtin.command: "cp -R {{ mount_output.stdout_lines[-1].split()[2] }}/Obsidian.app /Applications/Obsidian.app"
-      become: yes
-      tags:
-        - mac-full
-
-    - name: Unmount Obsidian DMG
-      ansible.builtin.shell: |
-        hdiutil detach {{ mount_output.stdout_lines[-1].split()[0] }}
-      tags:
-        - mac-full
 
 
 ## GNU Stow
