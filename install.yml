@@ -228,8 +228,8 @@
         dest: "{{ item.dest }}"
         mode: '0600'
       with_items:
-        - { src: "{{ ansible_user_dir }}/.dotfiles/gcloud/gcloud_credentials.yml/id_rsa", dest: "{{ ansible_user_dir }}/.ssh/id_rsa" }
-        - { src: "{{ ansible_user_dir }}/.dotfiles/gcloud/gcloud_credentials.yml/id_rsa.pub", dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub" }
+        - { src: "{{ ansible_user_dir }}/.dotfiles/gcloud/id_rsa", dest: "{{ ansible_user_dir }}/.ssh/id_rsa" }
+        - { src: "{{ ansible_user_dir }}/.dotfiles/gcloud/id_rsa.pub", dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub" }
       tags:
         - mac-minimal
         - mac-full
