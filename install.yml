@@ -15,7 +15,15 @@
     - name: Make Obsidian AppImage executable
       file:
         path: "/opt/Obsidian.AppImage"
-        mode: +x
+        mode: '0755'
+      tags:
+        - linux
+
+    - name: Create symbolic link for Obsidian
+      file:
+        src: "/opt/Obsidian.AppImage"
+        dest: "/usr/local/bin/obsidian"
+        state: link
       tags:
         - linux
 
