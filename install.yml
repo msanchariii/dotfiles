@@ -214,11 +214,12 @@
       no_log: true
       loop_control:
         loop_var: ssh_key_item
-      with_items: "{{ ssh_key | default({}) | dict2items }}"
+      with_items: "{{ ssh | default({}) | dict2items }}"
       tags:
         - mac-minimal
         - mac-full
         - linux
+        
     # - name: gcloud compute SSH
     #   command: gcloud compute ssh
     #   become: false
