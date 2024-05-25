@@ -222,14 +222,15 @@
         - mac-full
         - linux
 
-    - name: Copy SSH keys to .ssh directory
+    - name: "SSH | Copy SSH keys"
       copy:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        mode: '0600'
-      with_items:
-        - { src: "{{ ansible_user_dir }}/.dotfiles/gcloud/id_rsa", dest: "{{ ansible_user_dir }}/.ssh/id_rsa" }
-        - { src: "{{ ansible_user_dir }}/.dotfiles/gcloud/id_rsa.pub", dest: "{{ ansible_user_dir }}/.ssh/id_rsa.pub" }
+        dest: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"
+        content: "{{ ssh_key_item.value }}"
+        mode: "0600"
+      no_log: true
+      loop_control:
+        loop_var: ssh_key_item
+      with_items: "{{ ssh | default({}) | dict2items }}"
       tags:
         - mac-minimal
         - mac-full
