@@ -164,7 +164,7 @@
 
     - name: Include vars file from the cloned repo
       include_vars:
-        file: "{{ ansible_user_dir }}/.dotfiles/gcloud_credentials.yml"
+        file: "{{ ansible_user_dir }}/.dotfiles/gcloud/gcloud_credentials.yml"
       tags:
         - mac-minimal
         - mac-full
