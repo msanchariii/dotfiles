@@ -162,13 +162,13 @@
         - mac-full
         - linux
 
-- name: Include vars file from the cloned repo
-  include_vars:
-    file: "{{ ansible_user_dir }}/.dotfiles/gcloud_credentials.yml"
-  tags:
-    - mac-minimal
-    - mac-full
-    - linux
+    - name: Include vars file from the cloned repo
+      include_vars:
+        file: "{{ ansible_user_dir }}/.dotfiles/gcloud_credentials.yml"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
     
 # ###gcloud
     - name: Install required packages
