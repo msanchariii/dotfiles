@@ -244,13 +244,25 @@
     #     - mac-full
     #     - linux
 
-    # - name: Authenticate with service account
-    #   command: gcloud auth activate-service-account --key-file /path/to/service-account-key-file.json
-    #   become: false
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
+    - name: Write service account key to .ssh directory
+      copy:
+        dest: "{{ ansible_user_dir }}/.ssh/service-account-key.json"
+        content: "{{ service-account-key.json}}"
+        mode: '0600'
+      no_log: true
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+
+    - name: Authenticate with service account
+      command: gcloud auth activate-service-account --key-file "{{ ansible_user_dir }}/.ssh/service-account-key.json"
+      become: false
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
     # - name: Configure gcloud compute SSH
     #   command: gcloud compute config-ssh
