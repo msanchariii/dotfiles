@@ -247,9 +247,9 @@
     - name: Write service account key to .ssh directory
       copy:
         dest: "{{ ansible_user_dir }}/.ssh/service-account-key-file.json"
-        content: "{{ service-account-key-file.json}"
+        content: "{{ service-account-key-file.json}}"
         mode: '0600'
-      no_log: false
+      no_log: true
       tags:
         - mac-minimal
         - mac-full
