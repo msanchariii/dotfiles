@@ -4,37 +4,6 @@
   vars_files: 
     - credentials.yml
   tasks:
-##obsidian
-    - name: "MacOS | Install Obsidian"
-      homebrew:
-        name: obsidian
-        state: present
-      tags:
-        - mac-minimal
-        - mac-full
-
-    - name: Download Obsidian AppImage
-      get_url:
-        url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.12/Obsidian-1.5.12-arm64.AppImage"
-        dest: "/opt/Obsidian.AppImage"
-      tags:
-        - linux
-
-    - name: Make Obsidian AppImage executable
-      file:
-        path: "/opt/Obsidian.AppImage"
-        mode: '0755'
-      tags:
-        - linux
-
-    - name: Create symbolic link for Obsidian
-      file:
-        src: "/opt/Obsidian.AppImage"
-        dest: "/usr/local/bin/obsidian"
-        state: link
-      tags:
-        - linux
-
 
 ## GNU Stow
     - name: "MacOS | Install GNU Stow"
@@ -299,6 +268,16 @@
         - mac-minimal
         - mac-full
         - linux
+
+
+##obsidian
+    - name: "MacOS | Install Obsidian"
+      homebrew:
+        name: obsidian
+        state: present
+      tags:
+        - mac-minimal
+        - mac-full
 
 
 ## tmux
