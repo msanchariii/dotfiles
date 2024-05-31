@@ -9,5 +9,5 @@ RUN apt-get update && \
         python3 \
         apt-transport-https \
         ca-certificates \
-        curl
+        curl \
     && rm -rf /var/lib/apt/lists/*
