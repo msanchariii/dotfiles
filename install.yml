@@ -5,46 +5,8 @@
     - credentials.yml
   tasks:
 
-## GNU Stow
-    - name: "MacOS | Install GNU Stow"
-      homebrew:
-        name: stow
-        state: present
-      tags:
-        - mac-minimal
-        - mac-full
-  
-    - name: "Debian | Install GNU Stow"
-      apt:
-        name: stow
-        state: present
-      become: true
-      tags:
-        - linux
-   
-  
-## 1Password
-    - name: "MacOS | Install 1Password and 1Password CLI"
-      homebrew:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - 1password
-        - 1password-cli
-      tags:
-        - mac-full
 
-
-## kitty
-    - name: "MacOS | Install Kitty emulator"
-      homebrew:
-        name: kitty
-        state: present
-      tags:
-        - mac-full
-
-
-##git      
+## git      
     - name: "Git | Set user.email"
       community.general.git_config:
         name: user.email
@@ -119,6 +81,37 @@
         - mac-minimal
         - mac-full
         - linux
+
+
+## GNU Stow
+    - name: "MacOS | Install GNU Stow"
+      homebrew:
+        name: stow
+        state: present
+      tags:
+        - mac-minimal
+        - mac-full
+  
+    - name: "Debian | Install GNU Stow"
+      apt:
+        name: stow
+        state: present
+      become: true
+      tags:
+        - linux
+   
+  
+## 1Password
+    - name: "MacOS | Install 1Password and 1Password CLI"
+      homebrew:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - 1password
+        - 1password-cli
+      tags:
+        - mac-full
+
     
 # ###gcloud
     - name: Install required packages
@@ -221,6 +214,15 @@
     #     - mac-minimal
     #     - mac-full
     #     - linux
+
+
+## kitty
+    - name: "MacOS | Install Kitty emulator"
+      homebrew:
+        name: kitty
+        state: present
+      tags:
+        - mac-full
 
 
 ## neovim
