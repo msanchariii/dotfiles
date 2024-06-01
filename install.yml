@@ -531,17 +531,42 @@
         - mac-full
         - linux
 
-# Clone the configs repo
-    - name: Clone the .dotfiles repository into a hidden directory
+####
+
+    - name: Ensure known_hosts file exists
+      file:
+        path: "{{ ansible_user_dir }}/.ssh/known_hosts"
+        state: touch
+        mode: '0644'
+    
+    - name: Add GitHub to known_hosts
+      shell: |
+        if ! ssh-keygen -F github.com > /dev/null; then
+          ssh-keyscan github.com >> {{ ansible_user_dir }}/.ssh/known_hosts
+        fi
+      args:
+        creates: "{{ ansible_user_dir }}/.ssh/known_hosts"
+    
+    - name: Check if the repository is already cloned
+      stat:
+        path: "{{ ansible_user_dir }}/dotfiles-private/.git"
+      register: repo_dir
+
+    - name: Remove existing repository directory if it exists
+      file:
+        path: "{{ ansible_user_dir }}/dotfiles-private"
+        state: absent
+      when: repo_dir.stat.exists
+
+    - name: Clone the private repository
       git:
-        repo: 'git@github.com:suyashbhawsar/.dotfiles.git'
-        dest: '{{ ansible_user_dir }}/.dotfiles'
-        accept_hostkey: yes
-        update: yes
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+        repo: "git@github.com:suyashbhawsar/.dotfiles-private.git"
+        dest: "{{ ansible_user_dir }}/dotfiles-private"
+      environment:
+        GIT_SSH_COMMAND: "ssh -i {{ ansible_user_dir }}/.ssh/personal_rsa -o UserKnownHostsFile={{ ansible_user_dir }}/.ssh/known_hosts"
+      when: not repo_dir.stat.exists
+
+####
 
     - name: Include vars file from the cloned repo
       include_vars:
