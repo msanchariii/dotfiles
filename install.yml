@@ -569,6 +569,10 @@
         path: "{{ ansible_user_dir }}/dotfiles-private"
         state: absent
       when: repo_dir.stat.exists
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
     - name: Clone the private repository
       git:
@@ -577,6 +581,10 @@
       environment:
         GIT_SSH_COMMAND: "ssh -i {{ ansible_user_dir }}/.ssh/personal_rsa -o UserKnownHostsFile={{ ansible_user_dir }}/.ssh/known_hosts"
       when: not repo_dir.stat.exists
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
 ####
 
