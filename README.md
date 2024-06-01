@@ -1,5 +1,7 @@
 # ansible_playbook
 
+#### Create a file named pass `~/pass` & store the Ansible Vault Password in it
+
 #### Install Ansible & Homebrew in MacOS:
 
 ```bash
