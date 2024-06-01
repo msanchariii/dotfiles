@@ -40,15 +40,21 @@
         - mac-full
         - linux
 
-    - name: "SSH | Copy SSH keys"
+    - name: Ensure SSH key exists
+      stat:
+        path: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"
+      register: ssh_key_stat
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
+    - name: Copy SSH key
       copy:
         dest: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"
         content: "{{ ssh_key_item.value }}"
         mode: "0600"
-      no_log: true
-      loop_control:
-        loop_var: ssh_key_item
-      with_items: "{{ ssh_key | default({}) | dict2items }}"
+      when: not ssh_key_stat.stat.exists
       tags:
         - mac-minimal
         - mac-full
