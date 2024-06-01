@@ -5,7 +5,6 @@
     github_username: "suyashbhawsar"
   tasks:
 
-
 ## Git configuration
     - name: "Git | Set user.email"
       community.general.git_config:
@@ -776,30 +775,6 @@
         - mac-minimal
         - mac-full
         - linux
-
-####
-
-#    - name: Ensure known_hosts file exists
-#      file:
-#        path: "{{ ansible_user_dir }}/.ssh/known_hosts"
-#        state: touch
-#        mode: '0644'
-#      tags:
-#        - mac-minimal
-#        - mac-full
-#        - linux
-    
-#    - name: Add GitHub to known_hosts
-#      shell: |
-#        if ! ssh-keygen -F github.com > /dev/null; then
-#          ssh-keyscan github.com >> {{ ansible_user_dir }}/.ssh/known_hosts
-#        fi
-#      args:
-#        creates: "{{ ansible_user_dir }}/.ssh/known_hosts"
-#      tags:
-#        - mac-minimal
-#        - mac-full
-#        - linux
     
     - name: Clone repository
       shell: rm -rf ~/.dotfiles && GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:{{ github_username }}/.dotfiles.git ~/.dotfiles
@@ -810,15 +785,6 @@
         - linux
 
 ####
-
-    - name: Include vars file from the cloned repo
-      include_vars:
-        file: "{{ ansible_user_dir }}/.dotfiles/gcloud/gcloud_credentials.yml"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-
 
 ## GNU Stow
     - name: "MacOS | Install GNU Stow"
@@ -851,6 +817,14 @@
 
     
 # ###gcloud
+    - name: Include vars file from the cloned repo
+      include_vars:
+        file: "{{ ansible_user_dir }}/.dotfiles/gcloud/gcloud_credentials.yml"
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
     - name: "MacOS | Install Google Cloud SDK"
       homebrew:
         name: "{{ item }}"
