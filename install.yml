@@ -813,7 +813,6 @@
         - linux
 
     - name: Clone repository
-      git:
       shell: >
         GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:suyashbhawsar/.dotfiles-private.git
       when: not repo_dir.stat.exists
