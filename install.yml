@@ -582,7 +582,8 @@
         ssh_opts: >
           -o StrictHostKeyChecking=no
           -i ~/.ssh/personal_rsa
-        ask_pass: true
+      when: not repo_dir.stat.exists
+      tags:
         - mac-minimal
         - mac-full
         - linux
