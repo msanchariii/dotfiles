@@ -2,8 +2,8 @@
 - name: play
   hosts: localhost
   tasks:
-## git
 
+## git
     - name: "Git | Unset user.email"
       community.general.git_config:
         name: user.email
@@ -33,18 +33,6 @@
         - mac-full
         - linux
 
-    - name: "SSH | Remove specific SSH keys"
-      file:
-        path: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"
-        state: absent
-      loop_control:
-        loop_var: ssh_key_item
-      with_items: "{{ ssh_key | default({}) | dict2items }}"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-
     - name: Stop SSH agent
       shell: |
         ssh_agent_pid=$(pgrep ssh-agent)
@@ -67,12 +55,18 @@
 
 ##gcloud
     - name: Uninstall Google Cloud SDK
-      apt:
+      homebrew:
         name: google-cloud-cli
         state: absent
       tags:
         - mac-minimal
         - mac-full
+
+    - name: Uninstall Google Cloud SDK
+      apt:
+        name: google-cloud-cli
+        state: absent
+      tags:
         - linux
 
     - name: Remove Google Cloud SDK repository file
@@ -80,8 +74,6 @@
         path: /etc/apt/sources.list.d/google-cloud-sdk.list
         state: absent
       tags:
-        - mac-minimal
-        - mac-full
         - linux
 
     - name: Remove Google Cloud public GPG key
@@ -89,8 +81,6 @@
         path: /usr/share/keyrings/cloud.google.gpg
         state: absent
       tags:
-        - mac-minimal
-        - mac-full
         - linux
 
     - name: Remove required packages (optional)
@@ -102,16 +92,12 @@
           - curl
         state: absent
       tags:
-        - mac-minimal
-        - mac-full
         - linux
 
     - name: Update apt package list
       apt:
         update_cache: yes
       tags:
-        - mac-minimal
-        - mac-full
         - linux
 
     - name: Remove the service account key file
@@ -119,8 +105,6 @@
         path: /path/to/service-account-key-file.json
         state: absent
       tags:
-        - mac-minimal
-        - mac-full
         - linux
 
     - name: Remove gcloud compute SSH config entries
@@ -191,24 +175,22 @@
         path: "{{ ansible_user_dir }}/.config/nvim"
         state: absent
       tags:
-        - linux
         - mac
+        - linux
 
 ##stow
     - name: "Unstow Zsh configuration"
       ansible.builtin.command:
         cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
       tags:
-        - mac-minimal
-        - mac-full
+        - mac
         - linux
 
     - name: "Unstow Tmux configuration"
       ansible.builtin.command:
          cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
       tags:
-        - mac-minimal
-        - mac-full
+        - mac
         - linux 
 
 ## tmux
