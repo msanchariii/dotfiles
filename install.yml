@@ -793,29 +793,8 @@
 #        - mac-full
 #        - linux
     
-    - name: Check if the repository is already cloned
-      stat:
-        path: "{{ ansible_user_dir }}/dotfiles-private/.git"
-      register: repo_dir
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-
-    - name: Remove existing repository directory if it exists
-      file:
-        path: "{{ ansible_user_dir }}/dotfiles-private"
-        state: absent
-      when: repo_dir.stat.exists
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-
     - name: Clone repository
-      shell: >
-        GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:suyashbhawsar/.dotfiles-private.git
-      when: not repo_dir.stat.exists
+      shell: rm -rf .dotfiles && GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:suyashbhawsar/.dotfiles-private.git
       tags:
         - mac-minimal
         - mac-full
