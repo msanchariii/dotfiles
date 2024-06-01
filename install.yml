@@ -533,24 +533,36 @@
 
 ####
 
-    - name: Ensure known_hosts file exists
-      file:
-        path: "{{ ansible_user_dir }}/.ssh/known_hosts"
-        state: touch
-        mode: '0644'
+#    - name: Ensure known_hosts file exists
+#      file:
+#        path: "{{ ansible_user_dir }}/.ssh/known_hosts"
+#        state: touch
+#        mode: '0644'
+#      tags:
+#        - mac-minimal
+#        - mac-full
+#        - linux
     
-    - name: Add GitHub to known_hosts
-      shell: |
-        if ! ssh-keygen -F github.com > /dev/null; then
-          ssh-keyscan github.com >> {{ ansible_user_dir }}/.ssh/known_hosts
-        fi
-      args:
-        creates: "{{ ansible_user_dir }}/.ssh/known_hosts"
+#    - name: Add GitHub to known_hosts
+#      shell: |
+#        if ! ssh-keygen -F github.com > /dev/null; then
+#          ssh-keyscan github.com >> {{ ansible_user_dir }}/.ssh/known_hosts
+#        fi
+#      args:
+#        creates: "{{ ansible_user_dir }}/.ssh/known_hosts"
+#      tags:
+#        - mac-minimal
+#        - mac-full
+#        - linux
     
     - name: Check if the repository is already cloned
       stat:
         path: "{{ ansible_user_dir }}/dotfiles-private/.git"
       register: repo_dir
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
 
     - name: Remove existing repository directory if it exists
       file:
