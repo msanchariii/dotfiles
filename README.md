@@ -13,13 +13,13 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/suyashbhawsar/dotfiles/m
 #### Install Minimal packages & configs in MacOS:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags mac-minimal
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags mac-minimal --vault-password-file $HOME/pass
 ```
 
 #### Install Full packages & configs in MacOS:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags mac-full
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags mac-full --vault-password-file $HOME/pass
 ```
 
 #### Remove packages & configs in MacOS:
@@ -31,7 +31,7 @@ ___
 #### Install packages & configs in Linux:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags linux --vault-password-file pass
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags linux --vault-password-file pass --vault-password-file $HOME/pass
 ```
 ( Create pass file which contains your password of the encrypted file in the directory where you are willing to run this command )   
 
