@@ -574,17 +574,27 @@
         - mac-full
         - linux
 
-    - name: Clone the private repository
+    - name: Clone repository
       git:
         repo: "git@github.com:suyashbhawsar/.dotfiles-private.git"
         dest: "{{ ansible_user_dir }}/dotfiles-private"
-      environment:
-        GIT_SSH_COMMAND: "ssh -i {{ ansible_user_dir }}/.ssh/personal_rsa -o UserKnownHostsFile={{ ansible_user_dir }}/.ssh/known_hosts"
-      when: not repo_dir.stat.exists
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
+        version: main
+        ssh_opts: >
+          -o StrictHostKeyChecking=no
+          -i ~/.ssh/personal_rsa
+        ask_pass: true
+
+#    - name: Clone the private repository
+#      git:
+#        repo: "git@github.com:suyashbhawsar/.dotfiles-private.git"
+#        dest: "{{ ansible_user_dir }}/dotfiles-private"
+#      environment:
+#        GIT_SSH_COMMAND: "ssh -i {{ ansible_user_dir }}/.ssh/personal_rsa -o UserKnownHostsFile={{ ansible_user_dir }}/.ssh/known_hosts"
+#      when: not repo_dir.stat.exists
+#      tags:
+#        - mac-minimal
+#        - mac-full
+#        - linux
 
 ####
 
