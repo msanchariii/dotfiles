@@ -18,7 +18,7 @@
           65336534356630303063626265663965666130306465373136303031616438613538363762356338
           3331306234643536630a653439326530303931396535333662383466633439626435613434306363
           33386661353633316335376634353861646436613864363531366365333131323737
-      no_log: false
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -29,7 +29,7 @@
         name: user.name
         scope: global
         value: "{{ github_username }}"
-      no_log: true
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -40,6 +40,7 @@
         path: "{{ ansible_user_dir }}/.ssh"
         state: directory
         mode: '0700'
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -227,6 +228,7 @@
           64313737663633623961646464313834616335316434323137393332306636646163313235353066
           39373533346163623737
         mode: '0600'
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -279,6 +281,7 @@
           31653862656163336633306634643762393036653135626565303435356362623938656538386338
           66336564633161633833663865386437623538656334363437666263623034643463
         mode: '0644'
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -466,6 +469,7 @@
           35336532383130303433376433396436346563306235323035376633376231656137393338373061
           66333966616436326264
         mode: '0600'
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -518,6 +522,7 @@
           65636232666265396236653864326564313234643535353163643161643537353763343634656664
           30323434313630313066373865366363663661633133646262613336373430316464
         mode: '0644'
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -703,6 +708,7 @@
           66613138656333626430656666633337353663633230336461336665333265646231383662356365
           3033656133663838393032633561323730653465326263306536
         mode: '0600'
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -756,6 +762,7 @@
           65376339393130666564383033306336343830653261336566353236373930613561303362656439
           6632666339376539616439353864373864323531306466383034
         mode: '0644'
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -764,6 +771,7 @@
     - name: Start SSH agent
       shell: eval $(ssh-agent -s)
       register: ssh_agent_output
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -795,6 +803,7 @@
     
     - name: Clone repository
       shell: rm -rf ~/.dotfiles && GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:{{ github_username }}/.dotfiles.git ~/.dotfiles
+      become: false
       tags:
         - mac-minimal
         - mac-full
@@ -842,6 +851,16 @@
 
     
 # ###gcloud
+    - name: "MacOS | Install Google Cloud SDK"
+      homebrew:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - 1password
+        - 1password-cli
+      tags:
+        - mac-full
+
     - name: Install required packages
       apt:
         name:
@@ -851,16 +870,12 @@
           - curl
         state: present
       tags:
-        - mac-minimal
-        - mac-full
         - linux
-        
+
     - name: Add Google Cloud public GPG key
       shell: curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
       become: true
       tags:
-        - mac-minimal
-        - mac-full
         - linux
       
 
@@ -872,66 +887,36 @@
         group: root
         mode: '0644'
       tags:
-        - mac-minimal
-        - mac-full
         - linux
 
     - name: Update apt package list
       apt:
         update_cache: yes
       tags:
-        - mac-minimal
-        - mac-full
         - linux
 
-    - name: Install Google Cloud SDK
+    - name: "Linux | Install Google Cloud SDK"
       apt:
         name: google-cloud-cli
         state: present
       tags:
-        - mac-minimal
-        - mac-full
         - linux
 
-    - name: "SSH | Copy SSH keys"
+    - name: Copy service-account-key-file to .gcp_keys directory
       copy:
-        dest: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"
-        content: "{{ ssh_key_item.value }}"
-        mode: "0600"
-      no_log: true
-      loop_control:
-        loop_var: ssh_key_item
-      with_items: "{{ ssh | default({}) | dict2items }}"
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-        
-    # - name: gcloud compute SSH
-    #   command: gcloud compute ssh
-    #   become: false
-    #   tags:
-    #     - mac-minimal
-    #     - mac-full
-    #     - linux
-
-    - name: Copy service-account-key-file to .ssh directory
-      copy:
-        dest: "{{ ansible_user_dir }}/.ssh/service-account-key-file.json"
+        dest: "{{ ansible_user_dir }}/.gcp_keys/service-account-key-file.json"
         content: "{{ service-account-key-file }}"
         mode: '0600'
       no_log: false
       tags:
-        - mac-minimal
         - mac-full
         - linux
 
 
     - name: Authenticate with service account
-      command: gcloud auth activate-service-account --key-file "{{ ansible_user_dir }}/.ssh/service-account-key-file.json"
+      command: gcloud auth activate-service-account --key-file "{{ ansible_user_dir }}/.gcp_keys/service-account-key-file.json"
       become: false
       tags:
-        - mac-minimal
         - mac-full
         - linux
 
