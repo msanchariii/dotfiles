@@ -142,4 +142,4 @@
         - linux
 
 - name: Run post-stow configuration
-  import_playbook: post_stow.yml
+  import_playbook: ~/.dotfiles/post_stow.yml
