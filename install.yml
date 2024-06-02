@@ -559,7 +559,7 @@
         - linux
     
     - name: Clone repository
-      shell: rm -rf ~/.dotfiles && GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:{{ github_username }}/.dotfiles.git ~/.dotfiles
+      shell: rm -rf ~/.dotfiles && GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:{{ git_username }}/.dotfiles.git ~/.dotfiles
       become: false
       tags:
         - mac-minimal
