@@ -122,6 +122,14 @@
         - mac-full
         - linux
 
+    - name: Clone repository
+      shell: rm -rf .dotfiles && GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:{{ git_username }}/.dotfiles.git .dotfiles
+      become: false
+      tags:
+        - mac-minimal
+        - mac-full
+        - linux
+
 ####
 
 ## GNU Stow
@@ -141,5 +149,5 @@
       tags:
         - linux
 
-- name: Run post-stow configuration
-  import_playbook: "{{ ansible_user_dir }}/.dotfiles/post_stow.yml"
+#- name: Run post-stow configuration
+#  import_playbook: "{{ ansible_user_dir }}/.dotfiles/post_stow.yml"
