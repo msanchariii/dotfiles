@@ -3,4 +3,4 @@
   import_playbook: git_install.yml
 
 - name: Run Post-Stow Configuration
-  import_playbook: post_stow.yml
+  import_playbook: post_stow_import.yml
