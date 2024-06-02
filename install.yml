@@ -530,7 +530,7 @@
     - name: "SSH | Copy temp Private SSH key"
       copy:
         dest: "{{ ansible_user_dir }}/.ssh/temp"
-        content: {{ ssh_key_temp_private }}
+        content: "{{ ssh_key_temp_private }}"
         mode: '0600'
       become: false
       tags:
@@ -541,7 +541,7 @@
     - name: "SSH | Copy temp Public SSH key"
       copy:
         dest: "{{ ansible_user_dir }}/.ssh/temp.pub"
-        content: {{ ssh_key_temp_public }}
+        content: "{{ ssh_key_temp_public }}"
         mode: '0644'
       become: false
       tags:
