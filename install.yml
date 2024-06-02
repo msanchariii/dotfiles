@@ -1,0 +1,6 @@
+---
+- name: Run Initial Setup
+  import_playbook: git_install.yml
+
+- name: Run Post-Stow Configuration
+  import_playbook: post_stow.yml
