@@ -141,4 +141,4 @@
         - linux
 
 - name: Run post-stow configuration
-  import_playbook: "{{ ansible_user_dir }}/.dotfiles/post_stow_import.yml"
+  import_playbook: "post_stow_import.yml"
