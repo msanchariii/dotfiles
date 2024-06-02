@@ -142,4 +142,4 @@
 
 handlers:
   - name: Run post-stow configuration
-    import_playbook: "{{ ansible_user_dir }}/.dotfiles/git_install.yml"
+    import_playbook: "{{ ansible_user_dir }}/.dotfiles/post_stow_import.yml"
