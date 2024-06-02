@@ -141,5 +141,6 @@
       tags:
         - linux
 
-- name: Run post-stow configuration
-  import_playbook: "post_stow_import.yml"
+handlers:
+  - name: Run post-stow configuration
+    import_playbook: "post_stow_import.yml"
