@@ -1,6 +1,3 @@
 ---
-- name: Post-Stow Configuration
-  hosts: localhost
-  tasks:
-    - name: Run post-stow configuration
-      import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
+- name: Run post-stow configuration
+   import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
