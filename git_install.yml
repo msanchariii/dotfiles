@@ -121,6 +121,7 @@
         - mac-minimal
         - mac-full
         - linux
+      notify: Run post-stow configuration
 
 
 ## GNU Stow
