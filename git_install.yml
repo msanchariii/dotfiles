@@ -139,3 +139,7 @@
       become: true
       tags:
         - linux
+
+handlers:
+  - name: Run post-stow configuration
+    import_playbook: "{{ ansible_user_dir }}/.dotfiles/git_install.yml"
