@@ -13,19 +13,3 @@ brew install python
 # Install Ansible
 echo -e "\033[1;34mInstalling Ansible\033[0m"
 brew install ansible
-
-mkdir ~/.dotfiles && touch ~/.dotfiles/post_stow.yml
-
-# Create directory and playbook
-mkdir -p ~/.dotfiles && touch ~/.dotfiles/post_stow.yml
-
-# Add content to playbook
-cat << 'YAML' > ~/.dotfiles/post_stow.yml
----
-- name: Null Playbook
-  hosts: localhost
-  tasks:
-    - name: Do nothing
-      debug:
-        msg: "This playbook does nothing"
-YAML
