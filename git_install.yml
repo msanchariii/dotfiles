@@ -161,6 +161,7 @@
 #  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
 #  when: playbook_file_exist.stat.exists
 
+---
 - name: Run post_stow.yml
   hosts: localhost
   tasks:
