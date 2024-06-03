@@ -163,5 +163,4 @@
 
 
 - name: Run post-stow configuration
-  import_playbook:
-    src: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
+  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
