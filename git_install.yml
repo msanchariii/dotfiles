@@ -141,6 +141,18 @@
       tags:
         - linux
 
-- handlers:
-  - name: Run post-stow configuration
-    import_playbook: "post_stow_import.yml"
+
+##
+    - name: Check if post_stow_import.yml exists
+      stat:
+        path: post_stow_import.yml
+      register: playbook_file_exist
+        - mac-minimal
+        - mac-full
+        - linux
+
+
+##
+- name: Run post-stow configuration
+  import_playbook: "post_stow_import.yml"
+  when: playbook_file_exist.stat.exists
