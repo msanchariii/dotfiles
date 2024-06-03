@@ -161,11 +161,12 @@
 #  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
 #  when: playbook_file_exist.stat.exists
 
-- name: Check if post_stow.yml exists
+- name: Run post_stow.yml
   hosts: localhost
   tasks:
     - name: Run post-stow configuration
-      import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
+      import_playbook:
+        src: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
       tags:
         - mac-minimal
         - mac-full
