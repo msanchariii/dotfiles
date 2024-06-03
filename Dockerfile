@@ -10,4 +10,5 @@ RUN apt-get update && \
         apt-transport-https \
         ca-certificates \
         curl \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir ~/.dotfiles && touch ~/.dotfiles/post_stow.yml
