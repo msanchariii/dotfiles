@@ -10,8 +10,7 @@
         scope: global
         state: absent
       tags:
-        - mac-minimal
-        - mac-full
+        - mac
         - linux
 
     - name: "Git | Unset user.name"
@@ -20,8 +19,7 @@
         scope: global
         state: absent
       tags:
-        - mac-minimal
-        - mac-full
+        - mac
         - linux
 
     - name: Remove .ssh directory
@@ -29,8 +27,7 @@
         path: /root/.ssh
         state: absent
       tags:
-        - mac-minimal
-        - mac-full
+        - mac
         - linux
 
     - name: Stop SSH agent
@@ -40,8 +37,7 @@
           kill $ssh_agent_pid
         fi
       tags:
-        - mac-minimal
-        - mac-full
+        - mac
         - linux
 
     - name: Remove the .dotfiles repository
@@ -49,8 +45,7 @@
         path: '{{ ansible_user_dir }}/.dotfiles'
         state: absent
       tags:
-        - mac-minimal
-        - mac-full
+        - mac
         - linux
 
 ##gcloud
@@ -59,8 +54,7 @@
         name: google-cloud-cli
         state: absent
       tags:
-        - mac-minimal
-        - mac-full
+        - mac
 
     - name: Uninstall Google Cloud SDK
       apt:
@@ -113,8 +107,7 @@
         state: absent
         regexp: "^# Added by gcloud"
       tags:
-        - mac-minimal
-        - mac-full
+        - mac
         - linux
 
         
