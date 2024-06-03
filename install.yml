@@ -4,3 +4,4 @@
 
 - name: Run Post-Stow Configuration
   import_playbook: post_stow_import.yml
+  ignore_errors: yes
