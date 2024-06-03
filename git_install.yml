@@ -143,13 +143,13 @@
 
 
 ##
-    - name: Check if post_stow_import.yml exists
-      stat:
-        path: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
-      register: playbook_file_exist
-        - mac-minimal
-        - mac-full
-        - linux
+#    - name: Check if post_stow_import.yml exists
+#      stat:
+#        path: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
+#      register: playbook_file_exist
+#        - mac-minimal
+#        - mac-full
+#        - linux
 
 
 ##
@@ -158,6 +158,20 @@
 #  when: playbook_file_exist.stat.exists
 
 ##
-- name: Run post-stow configuration
-  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
-  when: playbook_file_exist.stat.exists
+#- name: Run post-stow configuration
+#  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
+#  when: playbook_file_exist.stat.exists
+
+- name: Check if post_stow.yml exists
+  hosts: localhost
+  tasks:
+    - name: Check if post_stow_import.yml exists
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
+      register: playbook_file_exist
+        - mac-minimal
+        - mac-full
+        - linux
+    - name: Run post-stow configuration
+      import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
+      when: playbook_file_exist.stat.exists
