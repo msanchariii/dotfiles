@@ -1,11 +1,3 @@
 ---
-#- name: Run post-stow configuration
-#  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
-
 - name: Run post-stow configuration
-  hosts: localhost
-  tasks:
-    - block:
-        - name: Import post-stow playbook
-          import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
-      when: lookup('file', "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml") is exists
+  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
