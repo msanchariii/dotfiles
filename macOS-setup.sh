@@ -13,3 +13,5 @@ brew install python
 # Install Ansible
 echo -e "\033[1;34mInstalling Ansible\033[0m"
 brew install ansible
+
+mkdir ~/.dotfiles && touch ~/.dotfiles/post_stow.yml
