@@ -28,15 +28,22 @@ ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags mac
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles remove.yml --tags mac
 ```
 ___
+#### Setup git in Linux:
+
+```bash
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles --vault-id @prompt --tags linux git.yml
+```
+
+
 #### Install packages & configs in Linux:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags linux --vault-password-file pass --vault-password-file $HOME/pass
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags linux install.yml
 ```
-( Create pass file which contains your password of the encrypted file in the directory where you are willing to run this command )   
+
 
 #### Remove packages & configs in Linux:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/dotfiles remove.yml --tags linux
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags linux remove.yml
 ```
