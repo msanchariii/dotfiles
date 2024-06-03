@@ -145,7 +145,7 @@
 ##
     - name: Check if post_stow_import.yml exists
       stat:
-        path: post_stow_import.yml
+        path: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
       register: playbook_file_exist
         - mac-minimal
         - mac-full
@@ -153,6 +153,11 @@
 
 
 ##
+#- name: Run post-stow configuration
+#  import_playbook: "post_stow_import.yml"
+#  when: playbook_file_exist.stat.exists
+
+##
 - name: Run post-stow configuration
-  import_playbook: "post_stow_import.yml"
+  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_stow.yml"
   when: playbook_file_exist.stat.exists
