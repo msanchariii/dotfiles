@@ -8,22 +8,28 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/suyashbhawsar/dotfiles/m
 
 ##### Now, quit & re-open the Terminal
 
+#### Setup git in MacOS:
+
+```bash
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles --vault-id @prompt --tags mac-minimal,mac-full git.yml
+```
+
 #### Install Minimal packages & configs in MacOS:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags mac-minimal --vault-password-file $HOME/pass
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags mac-minimal install.yml
 ```
 
 #### Install Full packages & configs in MacOS:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/dotfiles install.yml --tags mac-full --vault-password-file $HOME/pass
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags mac-full install.yml
 ```
 
 #### Remove packages & configs in MacOS:
 
 ```bash
-ansible-pull -U https://github.com/suyashbhawsar/dotfiles remove.yml --tags mac
+ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags mac remove.yml
 ```
 ___
 #### Setup git in Linux:
