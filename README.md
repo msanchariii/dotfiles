@@ -1,19 +1,18 @@
-# ansible_playbook
+# dotfiles
 
-## Encrypt the keys
+## Encrypting Keys
 Store a single key in a file `your_text_file` & encrypt like this for all the keys
 
 ```bash
 ansible-vault encrypt your_text_file
 ```
 
-Create a variable for the encrypted / plain text key
-Put the key in credentials.yml
+Create a variable for the encrypted or plain text key and store it in `credentials.yml`.
 
 ___
 ___
 
-## MacOS
+## macOS
 
 ### Install Ansible & Homebrew:
 
@@ -21,27 +20,27 @@ ___
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/suyashbhawsar/dotfiles/main/macOS-setup.sh)"
 ```
 
-#### Now, quit & re-open the Terminal
+#### Note: Quit & re-open the Terminal
 
-### Setup git:
+### Set up git:
 
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --vault-id @prompt --tags mac-minimal,mac-full git.yml
 ```
 
-### Install 'Minimal' packages & configs:
+### Install 'Minimal' Packages & Configurations:
 
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags mac-minimal install.yml
 ```
 
-### Install 'Full' packages & configs:
+### Install 'Full' Packages & Configurations:
 
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags mac-full install.yml
 ```
 
-### Remove packages & configs:
+### Remove Packages & Configurations:
 
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags mac remove.yml
@@ -56,28 +55,57 @@ ___
 cd ~/ && rm -rf dotfiles && git clone https://github.com/suyashbhawsar/dotfiles.git && docker stop $(docker ps -a | grep "debian-ansible" | sed 's/\|/ /'|awk '{print $1}') | xargs docker rm && docker rmi debian-ansible && docker build -t debian-ansible .
 ```
 
-## Start a container from the docker image
+### Start a container from the docker image
 
 ```bash
 docker run -it --rm debian-ansible /bin/bash
 ```
 
-### Setup git:
+### Set up git:
 
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --vault-id @prompt --tags linux git.yml
 ```
 
 
-### Install packages & configs:
+### Install Packages & Configurations:
 
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags linux install.yml
 ```
 
 
-### Remove packages & configs:
+### Remove Packages & Configurations:
 
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags linux remove.yml
 ```
+
+___
+___
+
+## File Descriptions:
+
+### Dockerfile:
+
+Defines the Docker image with all necessary dependencies for running Ansible on a Debian-based system.
+
+### macOS-setup.sh:
+
+Shell script to install Homebrew, Python, and Ansible on macOS.
+
+### credentials.yml:
+
+Stores variables for both plain text and encrypted credentials, used within the playbooks.
+
+### git.yml: 
+
+An Ansible playbook for configuring Git, which includes setting user details, SSH keys, and installing stow.
+
+### install.yml:
+
+Ansible playbook that runs the post-stow configuration (from the private repository: `.dotfiles`) after installing and configuring packages.
+
+### remove.yml:
+
+Playbook to remove installed packages and configurations.
