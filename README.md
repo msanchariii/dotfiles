@@ -16,13 +16,13 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/suyashbhawsar/dotfiles/m
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --vault-id @prompt --tags mac-minimal,mac-full git.yml
 ```
 
-### Install Minimal packages & configs:
+### Install 'Minimal' packages & configs:
 
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags mac-minimal install.yml
 ```
 
-### Install Full packages & configs:
+### Install 'Full' packages & configs:
 
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags mac-full install.yml
