@@ -8,29 +8,23 @@
 
 ## File Descriptions:
 
-#### `Dockerfile`:
+- `Dockerfile`:
+  Defines the Docker image with all necessary dependencies for running Ansible on a Debian-based system.
 
-Defines the Docker image with all necessary dependencies for running Ansible on a Debian-based system.
+- `macOS-setup.sh`:
+  Shell script to install Homebrew, Python, and Ansible on macOS.
 
-#### `macOS-setup.sh`:
+- `credentials.yml`:
+  Stores variables for both plain text and encrypted credentials, used within the playbooks.
 
-Shell script to install Homebrew, Python, and Ansible on macOS.
+- `git.yml`:
+  An Ansible playbook for configuring Git, which includes setting user details, SSH keys, and installing stow.
 
-#### `credentials.yml`:
+- `install.yml`:
+  Ansible playbook that runs the post-stow configuration (from the private repository: .dotfiles) after installing and configuring packages.
 
-Stores variables for both plain text and encrypted credentials, used within the playbooks.
-
-#### `git.yml`: 
-
-An Ansible playbook for configuring Git, which includes setting user details, SSH keys, and installing stow.
-
-#### `install.yml`:
-
-Ansible playbook that runs the post-stow configuration (from the private repository: `.dotfiles`) after installing and configuring packages.
-
-#### `remove.yml`:
-
-Playbook to remove installed packages and configurations.
+- `remove.yml`:
+  Playbook to remove installed packages and configurations.
 
 ___
 ___
@@ -39,6 +33,7 @@ ___
 ## Execution:
 
 ### Encrypting Keys
+
 Store a single key in a file `your_text_file` & encrypt like this for all the keys
 
 ```bash
