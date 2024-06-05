@@ -35,7 +35,7 @@ ___
 
 ## Execution:
 
-### Encrypting Keys
+### `Encrypting Keys`
 
 Store a single key in a file `your_text_file` & encrypt like this for all the keys
 
