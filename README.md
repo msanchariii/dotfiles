@@ -12,7 +12,7 @@ Create a variable for the encrypted or plain text key and store it in `credentia
 ___
 ___
 
-## macOS
+## `macOS`
 
 ### Install Ansible & Homebrew:
 
@@ -47,7 +47,7 @@ ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags mac remove.yml
 ```
 ___
 
-## Linux
+## `Linux`
 
 ### Clone the repo & build the docker image
 
