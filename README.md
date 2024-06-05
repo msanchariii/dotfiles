@@ -86,26 +86,26 @@ ___
 
 ## File Descriptions:
 
-### Dockerfile:
+### `Dockerfile`:
 
 Defines the Docker image with all necessary dependencies for running Ansible on a Debian-based system.
 
-### macOS-setup.sh:
+### `macOS-setup.sh`:
 
 Shell script to install Homebrew, Python, and Ansible on macOS.
 
-### credentials.yml:
+### `credentials.yml`:
 
 Stores variables for both plain text and encrypted credentials, used within the playbooks.
 
-### git.yml: 
+### `git.yml`: 
 
 An Ansible playbook for configuring Git, which includes setting user details, SSH keys, and installing stow.
 
-### install.yml:
+### `install.yml`:
 
 Ansible playbook that runs the post-stow configuration (from the private repository: `.dotfiles`) after installing and configuring packages.
 
-### remove.yml:
+### `remove.yml`:
 
 Playbook to remove installed packages and configurations.
