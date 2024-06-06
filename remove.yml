@@ -121,10 +121,7 @@
 
 ## Docker Desktop
     - name: "MacOS | Uninstall Docker Desktop"
-      homebrew:
-        name: docker
-        cask: yes
-        state: absent
+      command: brew uninstall --cask docker
       tags:
         - mac
 
