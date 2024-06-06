@@ -56,7 +56,7 @@
 ## Google Cloud SDK
     - name: Uninstall Google Cloud SDK
       homebrew:
-        name: google-cloud-cli
+        name: google-cloud-sdk
         state: absent
       tags:
         - mac
