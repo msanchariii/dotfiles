@@ -119,6 +119,16 @@
         - mac
 
 
+## Docker Desktop
+    - name: "MacOS | Uninstall Docker Desktop"
+      homebrew:
+        name: docker
+        cask: yes
+        state: absent
+      tags:
+        - mac
+
+
 ## Kitty terminal
     - name: "MacOS | Uninstall Kitty terminal emulator"
       homebrew:
@@ -167,6 +177,16 @@
         - mac
         - linux
 
+
+## Obsidian
+    - name: "MacOS | Uninstall Obsidian"
+      homebrew:
+        name: obsidian
+        state: absent
+      tags:
+        - mac
+
+
 ## GNU Stow unstow configurations
     - name: "Unstow Zsh configuration"
       ansible.builtin.command:
@@ -181,6 +201,7 @@
       tags:
         - mac
         - linux 
+
 
 ## Tmux
     - name: "MacOS | Uninstall tmux"
@@ -212,7 +233,8 @@
       tags:
         - linux
         - mac
-        
+
+
 ## Remove the configs repo
     - name: Remove .dotfiles directory
       ansible.builtin.file:
@@ -221,6 +243,7 @@
       tags:
         - linux
         - mac
+
 
 ## Zsh
     - name: "Debian | Uninstall Zsh"
