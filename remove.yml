@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
 
-## git
+## Git configuration
     - name: "Git | Unset user.email"
       community.general.git_config:
         name: user.email
@@ -22,6 +22,8 @@
         - mac
         - linux
 
+
+## SSH configuration
     - name: Remove .ssh directory
       file:
         path: /root/.ssh
@@ -40,6 +42,8 @@
         - mac
         - linux
 
+
+## Remove the .dotfiles repository
     - name: Remove the .dotfiles repository
       file:
         path: '{{ ansible_user_dir }}/.dotfiles'
@@ -48,7 +52,8 @@
         - mac
         - linux
 
-##gcloud
+
+## Google Cloud SDK
     - name: Uninstall Google Cloud SDK
       homebrew:
         name: google-cloud-cli
@@ -96,18 +101,9 @@
 
     - name: Remove the service account key file
       file:
-        path: /path/to/service-account-key-file.json
+        path: "{{ ansible_user_dir }}/.gcp_keys"
         state: absent
       tags:
-        - linux
-
-    - name: Remove gcloud compute SSH config entries
-      lineinfile:
-        path: "{{ ansible_user_dir }}/.ssh/config"
-        state: absent
-        regexp: "^# Added by gcloud"
-      tags:
-        - mac
         - linux
 
         
@@ -123,7 +119,7 @@
         - mac
 
 
-# kitty
+## Kitty terminal
     - name: "MacOS | Uninstall Kitty terminal emulator"
       homebrew:
         name: kitty
@@ -132,7 +128,7 @@
         - mac
 
 
-## neovim
+## Neovim
     - name: "MacOS | Uninstall Neovim and its Dependencies"
       homebrew:
         name: "{{ item }}"
@@ -171,7 +167,7 @@
         - mac
         - linux
 
-##stow
+## GNU Stow unstow configurations
     - name: "Unstow Zsh configuration"
       ansible.builtin.command:
         cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
@@ -186,7 +182,7 @@
         - mac
         - linux 
 
-## tmux
+## Tmux
     - name: "MacOS | Uninstall tmux"
       homebrew:
         name: tmux
@@ -226,7 +222,7 @@
         - linux
         - mac
 
-## zsh
+## Zsh
     - name: "Debian | Uninstall Zsh"
       ansible.builtin.apt:
         name: zsh
@@ -248,4 +244,21 @@
         state: absent
       tags:
         - mac
+        - linux
+
+
+## GNU Stow removal
+    - name: "MacOS | Uninstall GNU Stow"
+      homebrew:
+        name: stow
+        state: absent
+      tags:
+        - mac
+
+    - name: "Debian | Uninstall GNU Stow"
+      apt:
+        name: stow
+        state: absent
+      become: true
+      tags:
         - linux
