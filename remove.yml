@@ -43,6 +43,22 @@
         - linux
 
 
+## GNU Stow unstow configurations
+    - name: "Unstow Zsh configuration"
+      ansible.builtin.command:
+        cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
+      tags:
+        - mac
+        - linux
+
+    - name: "Unstow Tmux configuration"
+      ansible.builtin.command:
+         cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
+      tags:
+        - mac
+        - linux
+
+
 ## Remove the .dotfiles repository
     - name: Remove the .dotfiles repository
       file:
@@ -182,22 +198,6 @@
         state: absent
       tags:
         - mac
-
-
-## GNU Stow unstow configurations
-    - name: "Unstow Zsh configuration"
-      ansible.builtin.command:
-        cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
-      tags:
-        - mac
-        - linux
-
-    - name: "Unstow Tmux configuration"
-      ansible.builtin.command:
-         cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
-      tags:
-        - mac
-        - linux 
 
 
 ## Tmux
