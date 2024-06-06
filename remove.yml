@@ -26,7 +26,7 @@
 ## SSH configuration
     - name: Remove .ssh directory
       file:
-        path: /root/.ssh
+        path: "{{ ansible_user_dir }}/.ssh"
         state: absent
       tags:
         - mac
@@ -47,6 +47,7 @@
     - name: "Unstow Zsh configuration"
       ansible.builtin.command:
         cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} zsh"
+      become: false
       tags:
         - mac
         - linux
@@ -54,6 +55,7 @@
     - name: "Unstow Tmux configuration"
       ansible.builtin.command:
          cmd: "stow -D -d {{ ansible_user_dir }}/.dotfiles -t {{ ansible_env.HOME }} tmux"
+      become: false
       tags:
         - mac
         - linux
@@ -64,6 +66,7 @@
       file:
         path: '{{ ansible_user_dir }}/.dotfiles'
         state: absent
+      become: false
       tags:
         - mac
         - linux
@@ -98,7 +101,7 @@
       tags:
         - linux
 
-    - name: Remove required packages (optional)
+    - name: Uninstall required packages (optional)
       apt:
         name:
           - apt-transport-https
@@ -119,6 +122,7 @@
       file:
         path: "{{ ansible_user_dir }}/.gcp_keys"
         state: absent
+      become: false
       tags:
         - linux
 
@@ -186,6 +190,7 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.config/nvim"
         state: absent
+      become: false
       tags:
         - mac
         - linux
@@ -219,6 +224,7 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
         state: absent
+      become: false
       tags:
         - linux
         - mac
@@ -227,6 +233,7 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.config/tmux.conf"
         state: absent
+      become: false
       tags:
         - linux
         - mac
@@ -237,6 +244,7 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.dotfiles"
         state: absent
+      become: false
       tags:
         - linux
         - mac
@@ -254,6 +262,7 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.zshrc"
         state: absent
+      become: false
       tags:
         - mac
         - linux
@@ -262,6 +271,7 @@
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.oh-my-zsh"
         state: absent
+      become: false
       tags:
         - mac
         - linux
