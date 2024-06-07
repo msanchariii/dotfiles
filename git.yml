@@ -105,15 +105,6 @@
         - mac-full
         - linux
 
-    - name: Start SSH agent
-      shell: eval $(ssh-agent -s)
-      register: ssh_agent_output
-      become: false
-      tags:
-        - mac-minimal
-        - mac-full
-        - linux
-
     - name: Remove repository directory
       file:
         path: ~/.dotfiles
