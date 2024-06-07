@@ -36,9 +36,6 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/suyashbhawsar/dotfiles/m
 
 **Set up git:**
 
-![execution](https://github.com/suyashbhawsar/dotfiles/assets/113378204/1c6a3914-5cb8-457c-a988-4b11c655b90e)
-
-
 ```
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --vault-id @prompt --tags mac-minimal,mac-full git.yml
 ```
