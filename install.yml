@@ -1,3 +1,3 @@
 ---
-- name: Run post-stow configuration
+- name: Run post-git configuration
   import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/post_git.yml"
