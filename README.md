@@ -20,6 +20,8 @@ ssh-keygen -t rsa -b 4096
 
 A private key & a public key would be generated using the command.
 
+<iframe src="https://app.warp.dev/block/embed/FJ3CmEEUmHqr5yzWhJpAJM" title="embedded warp block" style="width: 1122px; height: 321px; border:0; overflow:hidden;" allow="clipboard-read; clipboard-write"></iframe>
+
 #### Encrypting Keys
 
 Store a single key in a file `your_text_file` & encrypt like this for all the keys
