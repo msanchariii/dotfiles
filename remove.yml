@@ -1,3 +1,11 @@
 ---
 - name: Run remove.yml from .dotfiles
-  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/remove.yml"
+  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/remove_post_git.yml"
+  tags:
+    - post_git
+    - git
+
+- name: Run remove.yml from .dotfiles
+  import_playbook: "{{ lookup('env', 'HOME') }}/.dotfiles/remove_git.yml"
+  tags:
+    - git
