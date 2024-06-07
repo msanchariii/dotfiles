@@ -48,5 +48,5 @@
       become: false
     
     - name: Clone repository
-      shell: GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:{{ personal_git_username }}/.dotfiles.git ~/.dotfiles
+      shell: GIT_SSH_COMMAND="ssh -i ~/.ssh/personal_rsa" git clone git@github.com:{{ personal_git_username }}/.dotfiles.git ~/.dotfiles
       become: false
