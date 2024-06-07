@@ -20,8 +20,16 @@ ___
 - `credentials.yml`:
   Stores variables for both plain text and encrypted credentials, used within the playbooks.
 
-- `git.yml`:
-  An Ansible playbook for configuring Git, which includes setting user details, SSH keys, and installing stow.
+- `personal_git.yml`:
+  This Ansible playbook is designed to configure Git settings, manage SSH keys, and clone a specific Git repository. Below is a detailed explanation of each section and task in the playbook.
+  + Playbook Overview
+    + Variable Files:
+      + credentials.yml (This file contains sensitive information such as your personal Git username, email, and SSH keys.)
+    + Tasks Breakdown
+      1. Git Configuration
+         Task 1: Set Git user.name
+
+
 
 - `install.yml`:
   Ansible playbook that runs the post-stow configuration (from the private repository: .dotfiles) after installing and configuring packages.
