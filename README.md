@@ -1,43 +1,12 @@
 # dotfiles
 
-1. [File Descriptions](#file-descriptions)
-2. [Execution](#execution)
+1. [Execution](#execution)
     - [Encrypting Keys](#encrypting-keys)
     - [macOS](#macos)
     - [Linux](#linux)
-
-___
-
-
-## File Descriptions:
-
-- `Dockerfile`:
-  Defines the Docker image with all necessary dependencies for running Ansible on a Debian-based system.
-
-- `macOS-setup.sh`:
-  Shell script to install Homebrew, Python, and Ansible on macOS.
-
-- `credentials.yml`:
-  Stores variables for both plain text and encrypted credentials, used within the playbooks.
-
-- `personal_git.yml`:
-  This Ansible playbook is designed to configure Git settings, manage SSH keys, and clone a specific Git repository. Below is a detailed explanation of each section and task in the playbook.
-  + Playbook Overview
-    + Variable Files:
-      + credentials.yml (This file contains sensitive information such as your personal Git username, email, and SSH keys.)
-    + Tasks Breakdown
-      1. Git Configuration
-         Task 1: Set Git user.name
+2. [File Descriptions](#file-descriptions)
 
 
-
-- `install.yml`:
-  Ansible playbook that runs the post-stow configuration (from the private repository: .dotfiles) after installing and configuring packages.
-
-- `remove.yml`:
-  Playbook to remove installed packages and configurations.
-
-___
 ___
 
 
@@ -54,7 +23,6 @@ ansible-vault encrypt your_text_file
 Create a variable for the encrypted or plain text key and store it in `credentials.yml`.
 
 ___
-
 
 ### `macOS`
 
@@ -124,3 +92,36 @@ ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags linux install.y
 ```bash
 ansible-pull -U https://github.com/suyashbhawsar/dotfiles --tags linux remove.yml
 ```
+
+
+___
+___
+
+
+## File Descriptions:
+
+- `Dockerfile`:
+  Defines the Docker image with all necessary dependencies for running Ansible on a Debian-based system.
+
+- `macOS-setup.sh`:
+  Shell script to install Homebrew, Python, and Ansible on macOS.
+
+- `credentials.yml`:
+  Stores variables for both plain text and encrypted credentials, used within the playbooks.
+
+- `personal_git.yml`:
+  This Ansible playbook is designed to configure Git settings, manage SSH keys, and clone a specific Git repository. Below is a detailed explanation of each section and task in the playbook.
+  + Playbook Overview
+    + Variable Files:
+      + credentials.yml (This file contains sensitive information such as your personal Git username, email, and SSH keys.)
+    + Tasks Breakdown
+      1. Git Configuration
+         Task 1: Set Git user.name
+
+
+
+- `install.yml`:
+  Ansible playbook that runs the post-stow configuration (from the private repository: .dotfiles) after installing and configuring packages.
+
+- `remove.yml`:
+  Playbook to remove installed packages and configurations.
