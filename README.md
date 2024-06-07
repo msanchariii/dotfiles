@@ -12,6 +12,14 @@ ___
 
 ## Execution:
 
+### Generating a new SSH key
+
+```bash
+ssh-keygen -t rsa -b 4096
+```
+
+A private key & a public key would be generated using the command.
+
 ### `Encrypting Keys`
 
 Store a single key in a file `your_text_file` & encrypt like this for all the keys
@@ -126,5 +134,10 @@ ___
 - `remove.yml`:
   Playbook to remove installed packages and configurations.
 
-  ## Troubleshooting
+
+___
+___
+
+
+## Troubleshooting
 
