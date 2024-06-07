@@ -20,8 +20,6 @@ ssh-keygen -t rsa -b 4096
 
 A private key & a public key would be generated using the command.
 
-![Dynamic Badge](https://img.shields.io/badge/dynamic/json.svg?label=label&url=url&query=queryString&color=color)
-
 #### Encrypting Keys
 
 Store a single key in a file `your_text_file` & encrypt like this for all the keys
