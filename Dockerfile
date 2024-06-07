@@ -10,4 +10,5 @@ RUN apt-get update && \
         apt-transport-https \
         ca-certificates \
         curl \
+        stow \
     && rm -rf /var/lib/apt/lists/*
