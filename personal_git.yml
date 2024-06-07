@@ -1,0 +1,52 @@
+---
+- name: play
+  hosts: localhost
+  vars_files: 
+    - credentials.yml
+  tasks:
+
+## Git configuration
+    - name: "Git | Set user.name"
+      community.general.git_config:
+        name: user.name
+        scope: global
+        value: "{{ personal_git_username }}"
+      become: false
+
+    - name: "Git | Set user.email"
+      community.general.git_config:
+        name: user.email
+        scope: global
+        value:  "{{ personal_git_email }}"
+      become: false
+
+    - name: Create .ssh directory
+      file:
+        path: "{{ ansible_user_dir }}/.ssh"
+        state: directory
+        mode: '0700'
+      become: false
+
+    - name: "SSH | Copy personal_rsa Public SSH key"
+      copy:
+        dest: "{{ ansible_user_dir }}/.ssh/personal_rsa.pub"
+        content: "{{ personal_ssh_key_public }}"
+        mode: '0644'
+      become: false
+
+    - name: "SSH | Copy personal_rsa Private SSH key"
+      copy:
+        dest: "{{ ansible_user_dir }}/.ssh/personal_rsa"
+        content: "{{ personal_ssh_key_private }}"
+        mode: '0600'
+      become: false
+
+    - name: Remove repository directory
+      file:
+        path: ~/.dotfiles
+        state: absent
+      become: false
+    
+    - name: Clone repository
+      shell: GIT_SSH_COMMAND="ssh -i ~/.ssh/temp" git clone git@github.com:{{ personal_git_username }}/.dotfiles.git ~/.dotfiles
+      become: false
