@@ -20,7 +20,7 @@ ssh-keygen -t rsa -b 4096
 
 A private key & a public key would be generated using the command.
 
-<iframe src="https://app.warp.dev/block/embed/FJ3CmEEUmHqr5yzWhJpAJM" title="embedded warp block" style="width: 1122px; height: 321px; border:0; overflow:hidden;" allow="clipboard-read; clipboard-write"></iframe>
+![Dynamic Badge](https://img.shields.io/badge/dynamic/json.svg?label=label&url=url&query=queryString&color=color)
 
 #### Encrypting Keys
 
