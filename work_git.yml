@@ -1,0 +1,35 @@
+---
+- name: play
+  hosts: localhost
+  vars_files: 
+    - credentials.yml
+  tasks:
+
+## Git configuration
+    - name: "Git | Set user.name"
+      community.general.git_config:
+        name: user.name
+        scope: global
+        value: "{{ work_git_username }}"
+      become: false
+
+    - name: "Git | Set user.email"
+      community.general.git_config:
+        name: user.email
+        scope: global
+        value:  "{{ work_git_username }}"
+      become: false
+
+    - name: "SSH | Copy personal_rsa Public SSH key"
+      copy:
+        dest: "{{ ansible_user_dir }}/.ssh/personal_rsa.pub"
+        content: "{{ work_ssh_key_public }}"
+        mode: '0644'
+      become: false
+
+    - name: "SSH | Copy personal_rsa Private SSH key"
+      copy:
+        dest: "{{ ansible_user_dir }}/.ssh/personal_rsa"
+        content: "{{ work_ssh_key_private }}"
+        mode: '0600'
+      become: false
