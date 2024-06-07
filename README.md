@@ -125,3 +125,6 @@ ___
 
 - `remove.yml`:
   Playbook to remove installed packages and configurations.
+
+  ## Troubleshooting
+
